@@ -1,0 +1,23 @@
+//
+// Created by GAD24 on 13/09/2025.
+//
+
+#include "Revue.h"
+
+using namespace std;
+
+Revue::Revue(const string &id, const string &titre, const string &auteur,
+             int anneeCreation, int nbPages, const string &collection,
+             const string &resume, const string &editeur,
+             const map<string, int> &articles, int nbArticle, bool dispo)
+        : Livre(id, titre, auteur, anneeCreation, nbPages, collection, resume, dispo),
+          editeur(editeur), articles(articles), nbArticle(nbArticle) {}
+
+void Revue::afficherInfos() const {
+    cout << titre
+         << auteur
+         << anneeCreation
+         << editeur
+         << nbArticle;
+         //TODO affihcer les articles
+}
