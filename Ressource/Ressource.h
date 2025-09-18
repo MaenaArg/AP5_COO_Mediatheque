@@ -8,31 +8,32 @@ using namespace std;
 
 class Ressource {
 protected:
+
+    enum statut {
+        disponible,
+        reserve,
+        emprunte
+    };
+
     string id;
     string titre;
     string auteur;
     int anneeCreation;
-    bool disponible;
+    statut statutRessource;
 
     Ressource(const string &id,
               const string &titre,
               const string &auteur,
               int anneeCreation,
-              bool disponible = true)
+              statut statutRessource)
             : id(id), titre(titre), auteur(auteur),
-              anneeCreation(anneeCreation), disponible(disponible) {}
+              anneeCreation(anneeCreation), statutRessource(statutRessource) {}
 
     virtual ~Ressource() {}
 
 public:
 
     virtual void afficherInfos() const = 0;
-
-    virtual void reserver();
-
-    virtual void rendre();
-
-    virtual void emprunter();
 };
 
 

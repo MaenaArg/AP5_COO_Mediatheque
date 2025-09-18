@@ -7,8 +7,8 @@
 using namespace std;
 
 Livre::Livre(const string &id, const string &titre, const string &auteur, int anneeCreation, int nbPages,
-             const string &collection, const string &resume, bool disponible)
-        : Ressource(id, titre, auteur, anneeCreation, disponible),
+             const string &collection, const string &resume, statut statutRessource)
+        : Ressource(id, titre, auteur, anneeCreation, statutRessource),
           nbPages(nbPages), collection(collection), resume(resume) {}
 
 void Livre::afficherInfos() const {
@@ -18,5 +18,5 @@ void Livre::afficherInfos() const {
          << nbPages
          << collection
          << resume
-         << disponible;
+         << statutRessource;
 }
