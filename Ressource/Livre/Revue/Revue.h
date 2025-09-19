@@ -17,10 +17,9 @@ private:
     int nbArticle;
 
 public:
-    Revue(const string &id, const string &titre, const string &auteur,
-          int anneeCreation, int nbPages, const string &collection,
-          const string &resume, const string &editeur,
-          const map<string, int> &articles, int nbArticle, statut statutRessource = statut::disponible);
+    Revue(const string &id, const string &titre, const string &auteur, int anneeCreation, int nbPages,
+          const string &collection, const string &resume, const string &editeur, const map<string, int> &articles,
+          int nbArticle, statut statutRessource = statut::disponible);
 
     void afficherInfos() const override;
 };

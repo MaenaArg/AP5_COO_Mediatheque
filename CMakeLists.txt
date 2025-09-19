@@ -11,4 +11,10 @@ add_executable(AP5_COO_mediatheque
         Ressource/Livre/Revue/Revue.cpp
         Ressource/CD/CD.cpp
         Ressource/CD/CD.h
+        Ressource/VHS/VHS.cpp
+        Ressource/VHS/VHS.h
+        Ressource/VHS/DVD/DVD.cpp
+        Ressource/VHS/DVD/DVD.h
+        Ressource/Numerique/Numerique.cpp
+        Ressource/Numerique/Numerique.h
 )

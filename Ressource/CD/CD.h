@@ -15,9 +15,8 @@ protected:
     string duree;
     string maisonProd;
 public:
-    CD(const string &id, const string &titre, const string &auteur,
-       int anneeCreation, int nbPistes, const string &duree,
-       const string &maisonProd, statut statutRessource = statut::disponible);
+    CD(const string &id, const string &titre, const string &auteur, int anneeCreation, int nbPistes,
+       const string &duree, const string &maisonProd, statut statutRessource = statut::disponible);
 
     virtual ~CD() {}
 

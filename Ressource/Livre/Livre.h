@@ -15,9 +15,8 @@ protected:
     string collection;
     string resume;
 public:
-    Livre(const string &id, const string &titre, const string &auteur,
-          int anneeCreation, int nbPages, const string &collection,
-          const string &resume, statut statutRessource = statut::disponible);
+    Livre(const string &id, const string &titre, const string &auteur, int anneeCreation, int nbPages,
+          const string &collection, const string &resume, statut statutRessource = statut::disponible);
 
     virtual ~Livre() {}
 
