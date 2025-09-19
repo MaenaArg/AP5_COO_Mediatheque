@@ -11,10 +11,10 @@ VHS::VHS(const string &id, const string &titre, const string &auteur, int anneeC
         : Ressource(id, titre, auteur, anneeCreation, statutRessource), duree(duree), maisonProd(maisonProd) {}
 
 void VHS::afficherInfos() const {
-    cout << "Titre : " << titre
-         << "Auteur : " << auteur
-         << "Année de création : " << anneeCreation
-         << "Durée : " << duree
-         << "Maison de production : " << maisonProd
-         << "Statut : " << statutRessource;
+    cout << "Titre : " << titre << '\n'
+         << "Auteur : " << auteur << '\n'
+         << "Année de création : " << anneeCreation << '\n'
+         << "Durée : " << duree << '\n'
+         << "Maison de production : " << maisonProd << '\n'
+         << "Statut : " << statutRessource << '\n';
 }

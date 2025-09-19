@@ -13,12 +13,12 @@ Revue::Revue(const string &id, const string &titre, const string &auteur, int an
           articles(articles), nbArticle(nbArticle) {}
 
 void Revue::afficherInfos() const {
-    cout << "Titre : " << titre
-         << "Auteur : " << auteur
-         << "Année de création : " << anneeCreation
-         << "Éditeur : " << editeur
-         << "Statut : " << statutRessource
-         << "Nombre d'articles : " << nbArticle;
+    cout << "Titre : " << titre << '\n'
+         << "Auteur : " << auteur << '\n'
+         << "Année de création : " << anneeCreation << '\n'
+         << "Éditeur : " << editeur << '\n'
+         << "Statut : " << statutRessource << '\n'
+         << "Nombre d'articles : " << nbArticle << '\n';
     if (!articles.empty()) {
         for (const auto &[page, article]: articles) {
             cout << "  - p." << page << " : " << article << '\n';

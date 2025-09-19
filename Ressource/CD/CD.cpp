@@ -18,5 +18,5 @@ void CD::afficherInfos() const {
          << "Nombre de pistes : " << nbPistes << '\n'
          << "Durée : " << duree << '\n'
          << "Maison de production : " << maisonProd << '\n'
-         << "Statut : " << statutRessource;
+         << "Statut : " << statutRessource << '\n';
 }
