@@ -3,4 +3,8 @@ project(AP5_COO_mediatheque)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(AP5_COO_mediatheque main.cpp)
+add_executable(AP5_COO_mediatheque main.cpp
+        Utilisateur/Utilisateur.cpp
+        Utilisateur/Utilisateur.h
+        Utilisateur/Administrateur/Administrateur.h
+        Utilisateur/Client/Client.h)
