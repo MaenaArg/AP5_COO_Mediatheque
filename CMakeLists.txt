@@ -17,4 +17,8 @@ add_executable(AP5_COO_mediatheque
         Ressource/VHS/DVD/DVD.h
         Ressource/Numerique/Numerique.cpp
         Ressource/Numerique/Numerique.h
+        Utilisateur/Utilisateur.cpp
+        Utilisateur/Utilisateur.h
+        Utilisateur/Administrateur/Administrateur.h
+        Utilisateur/Client/Client.h)
 )
