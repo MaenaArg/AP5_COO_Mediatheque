@@ -13,12 +13,12 @@ using namespace std;
 class Revue : public Livre {
 private:
     string editeur;
-    map<string, int> articles; // titre -> nbPages
+    map<int, string> articles;
     int nbArticle;
 
 public:
     Revue(const string &id, const string &titre, const string &auteur, int anneeCreation, int nbPages,
-          const string &collection, const string &resume, const string &editeur, const map<string, int> &articles,
+          const string &collection, const string &resume, const string &editeur, const map<int, string> &articles,
           int nbArticle, statut statutRessource = statut::disponible);
 
     void afficherInfos() const override;
