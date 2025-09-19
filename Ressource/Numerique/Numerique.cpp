@@ -11,11 +11,11 @@ Numerique::Numerique(const string &id, const string &titre, const string &auteur
         : Ressource(id, titre, auteur, anneeCreation, statutRessource), type(type), taille(taille), url(url) {}
 
 void Numerique::afficherInfos() const {
-    cout << titre
-         << auteur
-         << anneeCreation
-         << type
-         << taille
-         << url
-         << statutRessource;
+    cout << "Titre : " << titre
+         << "Auteur : " << auteur
+         << "Année de création : " << anneeCreation
+         << "Type : " << type
+         << "Taille : " << taille
+         << "URL : " << url
+         << "Statut : " << statutRessource;
 }

@@ -11,8 +11,8 @@ DVD::DVD(const string &id, const string &titre, const string &auteur, int anneeC
         : VHS(id, titre, auteur, anneeCreation, duree, maisonProd, statutRessource), nbPistes(nbPistes) {}
 
 void DVD::afficherInfos() const {
-    cout << titre
-         << auteur
-         << anneeCreation
-         << nbPistes;
+    cout << "Titre : " << titre
+         << "Auteur : " << auteur
+         << "Année de création : " << anneeCreation
+         << "Nombre de pistes : " << nbPistes;
 }

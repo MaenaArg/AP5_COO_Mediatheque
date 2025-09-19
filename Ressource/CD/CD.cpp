@@ -12,11 +12,11 @@ CD::CD(const string &id, const string &titre, const string &auteur, int anneeCre
           maisonProd(maisonProd) {}
 
 void CD::afficherInfos() const {
-    cout << titre
-         << auteur
-         << anneeCreation
-         << nbPistes
-         << duree
-         << maisonProd
-         << statutRessource;
+    cout << "Titre : " << titre << '\n'
+         << "Auteur : " << auteur << '\n'
+         << "Année de création : " << anneeCreation << '\n'
+         << "Nombre de pistes : " << nbPistes << '\n'
+         << "Durée : " << duree << '\n'
+         << "Maison de production : " << maisonProd << '\n'
+         << "Statut : " << statutRessource;
 }
