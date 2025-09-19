@@ -20,5 +20,5 @@ add_executable(AP5_COO_mediatheque
         Utilisateur/Utilisateur.cpp
         Utilisateur/Utilisateur.h
         Utilisateur/Administrateur/Administrateur.h
-        Utilisateur/Client/Client.h)
+        Utilisateur/Client/Client.h
 )
