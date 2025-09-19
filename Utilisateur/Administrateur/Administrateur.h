@@ -6,16 +6,14 @@
 #define AP5_COO_MEDIATHEQUE_ADMINISTRATEUR_H
 #include "../Utilisateur.h"
 
-
-class Administrateur : Utilisateur {
+class Administrateur : public Utilisateur {
 
 public:
-    // Constructeur
-    Administrateur(const std::string &pId, const std::string &pMdp);
+    // Réutilisation du constructeur de Utilisateur
+    using Utilisateur::Utilisateur;
 
-    // Destructeur virtuel pour Utilisateur
-    virtual ~Administrateur() = default;
+    // Destructeur virtuel pour Administrateur
+    ~Administrateur() override = default;
 };
-
 
 #endif //AP5_COO_MEDIATHEQUE_ADMINISTRATEUR_H
