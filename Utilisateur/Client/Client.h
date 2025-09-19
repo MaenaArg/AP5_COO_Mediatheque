@@ -4,16 +4,15 @@
 
 #ifndef AP5_COO_MEDIATHEQUE_CLIENT_H
 #define AP5_COO_MEDIATHEQUE_CLIENT_H
-#include <iostream>
-#include <string>
+#include "../Utilisateur.h"
 
-class Client {
+class Client : public Utilisateur {
 
-    // Constructeur
-    Client(const std::string &pId, const std::string &pMdp) ;
+    // Réutilisation du constructeur de Utilisateur
+    using Utilisateur::Utilisateur;
 
     // Destructeur virtuel pour Utilisateur
-    virtual ~Client() = default;
+    ~Client() override = default;
 };
 
 #endif //AP5_COO_MEDIATHEQUE_CLIENT_H

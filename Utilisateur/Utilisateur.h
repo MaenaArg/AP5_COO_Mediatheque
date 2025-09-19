@@ -13,32 +13,33 @@ protected :
     // Attributs
     std::string identifiant;
     std::string mdp;
+    bool estConnecte = false;
 
 public :
     // Constructeur
-    Utilisateur(const std::string &pId, const std::string &pMdp) : identifiant(pId), mdp(pMdp) {
-    }
+    Utilisateur(const std::string &pId, const std::string &pMdp);
 
     // Destructeur virtuel pour Utilisateur
     virtual ~Utilisateur() = default;
 
     // Accesseurs
-    std::string getIdentifiant() const { return identifiant; }
-    void setIdentifiant(const std::string &pId) { identifiant = pId; }
+    std::string getIdentifiant() const;
+    void setIdentifiant(const std::string &pId);
 
-    std::string getMdp() const { return mdp; }
-    void setMdp(const std::string &pMdp) { mdp = pMdp; }
+    std::string getMdp() const;
+    void setMdp(const std::string &pMdp);
+
+    bool getEstConnecte() const;
+    void setEstConnecte(const bool &pEstConnecte);
 
     // Méthode Se Connecter avec identifiant et mdp
-    virtual void seConnecter(const std::string &id, const std::string &mdp);
+    virtual void seConnecter(const std::string &id, const std::string &pMdp);
 
     // Méthode Se déconnecter
     virtual void seDeconnecter();
 
     // Méthode afficher les informations d'un utilisateur
-    virtual void afficherInfos() {
-        std::cout << "Identifiant : " << " " << identifiant << " \n" << "Mot de passe : " << mdp  << std::endl;
-    }
+    virtual void afficherInfos();
 };
 
 #endif //AP5_COO_MEDIATHEQUE_UTILISATEUR_H
