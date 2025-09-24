@@ -5,6 +5,7 @@
 #ifndef AP5_COO_MEDIATHEQUE_UTILISATEUR_H
 #define AP5_COO_MEDIATHEQUE_UTILISATEUR_H
 #include <iostream>
+#include <map>
 #include <string>
 
 class Utilisateur {
@@ -14,8 +15,10 @@ protected :
     std::string identifiant;
     std::string mdp;
     bool estConnecte = false;
+    /*std::map<int, std::Ressource> listEmprunt;*/
+    std::vector<std::pair<std::string, std::string>> listeCommandes;
 
-public :
+public:
     // Constructeur
     Utilisateur(const std::string &pId, const std::string &pMdp);
 
@@ -32,6 +35,8 @@ public :
     bool getEstConnecte() const;
     void setEstConnecte(const bool &pEstConnecte);
 
+    std::vector<std::pair<std::string, std::string>> getListeCommandes() const ;
+
     // Méthode Se Connecter avec identifiant et mdp
     virtual void seConnecter(const std::string &id, const std::string &pMdp);
 
@@ -40,6 +45,9 @@ public :
 
     // Méthode afficher les informations d'un utilisateur
     virtual void afficherInfos();
+
+    // Méthodes communes
+    void afficherCommandes() const;
 };
 
 #endif //AP5_COO_MEDIATHEQUE_UTILISATEUR_H

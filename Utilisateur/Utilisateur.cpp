@@ -22,18 +22,23 @@ void Utilisateur::setMdp(const std::string &pMdp) { mdp = pMdp; }
 bool Utilisateur::getEstConnecte() const { return estConnecte; }
 void Utilisateur::setEstConnecte(const bool &pEstConnecte) { estConnecte = pEstConnecte; }
 
+// Liste des commandes
+std::vector<std::pair<std::string, std::string>> Utilisateur::getListeCommandes() const { return listeCommandes; }
+
 // Méthode afficher les informations d'un utilisateur
 void Utilisateur::afficherInfos() {
-    std::cout << "Identifiant : " << " " << identifiant << " \n" << "Mot de passe : " << mdp << std::endl;
+    std::cout << "Identifiant : " << " " << identifiant << " \n"
+              << "Mot de passe : " << mdp << std::endl;
 }
 
 // Méthode Se Connecter avec identifiant et mdp
-void Utilisateur::seConnecter(const std::string &id, const std::string &pMdp) {
-    if (id == identifiant && pMdp == mdp && !estConnecte) {
+void Utilisateur::seConnecter(const std::string &pId, const std::string &pMdp) {
+    if (pId == identifiant && pMdp == mdp && !estConnecte) {
         estConnecte = true;
-        std::cout << "Connexion réussie, bonjour  " << id << "!" << std::endl;
+        /*std::cout << "Connexion réussie, bonjour  " << identifiant << "!" << std::endl;*/
     } else {
-        std::cout << "Echec de connexion.";
+        estConnecte = false;
+        /*std::cout << "Echec de connexion, identifiant ou mot de passe incorrect.";*/
     }
 }
 
@@ -41,8 +46,18 @@ void Utilisateur::seConnecter(const std::string &id, const std::string &pMdp) {
 void Utilisateur::seDeconnecter() {
     if (estConnecte) {
         estConnecte = false;
-        std::cout << "Déconnexion réussie, au revoir " << identifiant << " !";
+        /*std::cout << "Déconnexion réussie, au revoir " << identifiant << " !";
+
+        Menu menu;
+        menu.menuConnexion();*/
     } else {
         std::cout << "Echec de deconnexion.";
+    }
+}
+
+void Utilisateur::afficherCommandes() const {
+    std::cout << "\nCommandes disponibles :\n";
+    for (const auto& cmd : listeCommandes) {
+        std::cout << "  " << cmd.first << " - " << cmd.second << std::endl;
     }
 }
