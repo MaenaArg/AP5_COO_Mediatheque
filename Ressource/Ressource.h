@@ -8,7 +8,6 @@ using namespace std;
 
 class Ressource {
 protected:
-
     enum statut {
         disponible,
         reserve,
@@ -21,6 +20,7 @@ protected:
     int anneeCreation;
     statut statutRessource;
 
+public:
     Ressource(const string &id,
               const string &titre,
               const string &auteur,
@@ -29,11 +29,9 @@ protected:
             : id(id), titre(titre), auteur(auteur),
               anneeCreation(anneeCreation), statutRessource(statutRessource) {}
 
-    virtual ~Ressource() {}
+    ~Ressource() = default;
 
-public:
-
-    virtual void afficherInfos() const = 0;
+    void afficherInfos() const;
 };
 
 
