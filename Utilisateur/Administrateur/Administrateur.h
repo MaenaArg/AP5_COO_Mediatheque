@@ -7,10 +7,23 @@
 #include "../Utilisateur.h"
 
 class Administrateur : public Utilisateur {
-
 public:
-    // Réutilisation du constructeur de Utilisateur
-    using Utilisateur::Utilisateur;
+    // Constructeur
+    Administrateur(const std::string &id, const std::string &mdp) : Utilisateur(id, mdp) {
+        listeCommandes = {
+            {"LIST", "Lister les ressources"},
+            {"SEARCH", "Filtrer les ressources"},
+            {"SHOW", "Afficher une ressource par ID"},
+            {"CLEAR", "Réinitialiser la recherche"},
+            {"ADD", "Créer une ressource"},
+            {"DELETE", "Supprimer une ressource"},
+            {"SAVE", "Sauvegarder"},
+            {"LOAD", "Charger"},
+            {"RESET", "Vider la médiathèque"},
+            {"LOGOUT ", "Deconnexion"},
+            {"BYE ", "Quitter"},
+        };
+    }
 
     // Destructeur virtuel pour Administrateur
     ~Administrateur() override = default;
