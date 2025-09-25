@@ -14,27 +14,27 @@ private:
 
 public:
     // Constructeur
-    Mediatheque();
+    Mediatheque() ;
 
     // Destructeur virtuel pour Mediatheque
-    virtual ~Mediatheque() = default;
+    ~Mediatheque() = default;
 
     // Accesseur
     std::map<int, Ressource> getRessources() const ;
 
     // Méthodes
-    virtual void creationRessources();
-    virtual void supprimerRessources();
-    virtual void chargerFichier(const std::string &pnomFichier);
-    virtual void sauvFichier(const std::string &pnomFichier);
-    virtual std::map<int, Ressource> rechercher(const std::string &pFiltre);
-    virtual void listerRessources();
-    virtual void afficherParID(const std::string &id);
-    virtual void reinitialiser();
-    virtual void viderMediatheque();
-    virtual void reserver(const Ressource &pRessource);
-    virtual void emprunter(const Ressource &pRessource);
-    virtual void rendre(const Ressource &pRessource);
+    static void creationRessources();
+    static void supprimerRessources(const std::string &pId);
+    static void chargerFichier(const std::string &pnomFichier);
+    static void sauvFichier(const std::string &pnomFichier);
+    static std::map<int, Ressource> rechercher(const std::string &pFiltre);
+    static void listerRessources();
+    static void afficherParID(const std::string &pId);
+    static void reinitialiser();
+    static void viderMediatheque();
+    static void reserver(const Ressource &pRessource);
+    static void emprunter(const Ressource &pRessource);
+    static void rendre(const Ressource &pRessource);
 };
 
 #endif //AP5_COO_MEDIATHEQUE_MEDIATHEQUE_H
