@@ -23,4 +23,6 @@ add_executable(AP5_COO_mediatheque
         Utilisateur/Client/Client.h
         Menu/Menu.cpp
         Menu/Menu.h
+        Mediatheque/mediatheque.cpp
+        Mediatheque/mediatheque.h
 )
