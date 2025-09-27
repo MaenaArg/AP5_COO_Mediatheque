@@ -1,9 +1,11 @@
 #include <iostream>
+#include "Mediatheque/Mediatheque.h"
 #include "Utilisateur/Client/Client.h"
 #include "Menu/Menu.h"
 #include "Utilisateur/Administrateur/Administrateur.h"
 
 int main() {
+    Mediatheque *mediatheque = Mediatheque::getInstance();
     Menu menu;
     Utilisateur *utilisateurActuel = nullptr;
     bool boucle = true;
@@ -46,8 +48,18 @@ int main() {
             std::string choix = menu.demanderCommande();
 
             // TODO LES AUTRES COMMANDES
-
-            if (choix == "LOGOUT") {
+            if (choix == "SHOW") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->afficherParID(id);
+                } else {
+                    std::cout <<  "Veuillez fournir un identifiant après SHOW. Syntaxe : SHOW <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "RESET") {
+                //Mediatheque::viderMediatheque();
+            } else if (choix == "LOGOUT") {
                 utilisateurActuel->seDeconnecter();
                 delete utilisateurActuel;
                 // Plus personne de connecté

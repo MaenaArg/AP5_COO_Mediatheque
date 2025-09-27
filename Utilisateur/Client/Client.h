@@ -15,7 +15,7 @@ public:
             listeCommandes = {
                 {"LIST", "Lister les ressources"},
                 {"SEARCH", "Filtrer les ressources"},
-                {"SHOW", "Afficher une ressource par ID"},
+                {"SHOW <id>", "Afficher une ressource par ID"},
                 {"CLEAR", "Réinitialiser la recherche"},
                 {"RELOAD", "Recharger les données"},
                 {"BORROW", "Emprunter une ressource"},

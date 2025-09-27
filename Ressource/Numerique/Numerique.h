@@ -15,12 +15,12 @@ protected:
     int taille;
     string url;
 public:
-    Numerique(const string &id, const string &titre, const string &auteur, int anneeCreation, const string &type,
+    Numerique(const string &titre, const string &auteur, int anneeCreation, const string &type,
               int taille, const string &url, statut statutRessource = statut::disponible);
 
     virtual ~Numerique() {}
 
-    void afficherInfos() const override;
+    void afficherInfos() const;
 };
 
 

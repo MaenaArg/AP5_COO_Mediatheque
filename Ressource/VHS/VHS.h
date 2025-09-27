@@ -14,8 +14,8 @@ protected:
     string duree;
     string maisonProd;
 public:
-    VHS(const string &id, const string &titre, const string &auteur, int anneeCreation, const string &duree,
-        const string &maisonProd, statut statutRessource = statut::disponible);
+    VHS(const string &titre, const string &auteur, int anneeCreation, const string &duree,
+        const string &maisonProd, statut statutRessource = disponible);
 
     virtual ~VHS() {}
 
