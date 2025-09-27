@@ -6,19 +6,21 @@
 
 using namespace std;
 
-Revue::Revue(const string &id, const string &titre, const string &auteur, int anneeCreation, int nbPages,
+Revue::Revue(const string &titre, const string &auteur, int anneeCreation, int nbPages,
              const string &collection, const string &resume, const string &editeur, const map<int, string> &articles,
              int nbArticle, statut statutRessource)
-        : Livre(id, titre, auteur, anneeCreation, nbPages, collection, resume, statutRessource), editeur(editeur),
-          articles(articles), nbArticle(nbArticle) {}
+    : Livre(titre, auteur, anneeCreation, nbPages, collection, resume, statutRessource), editeur(editeur),
+      articles(articles), nbArticle(nbArticle) {
+}
 
 void Revue::afficherInfos() const {
-    cout << "Titre : " << titre << '\n'
-         << "Auteur : " << auteur << '\n'
-         << "Année de création : " << anneeCreation << '\n'
-         << "Éditeur : " << editeur << '\n'
-         << "Statut : " << statutRessource << '\n'
-         << "Nombre d'articles : " << nbArticle << '\n';
+    cout << "ID : " << id << '\n'
+            << "Titre : " << titre << '\n'
+            << "Auteur : " << auteur << '\n'
+            << "Année de création : " << anneeCreation << '\n'
+            << "Éditeur : " << editeur << '\n'
+            << "Statut : " << statutRessource << '\n'
+            << "Nombre d'articles : " << nbArticle << '\n';
     if (!articles.empty()) {
         for (const auto &[page, article]: articles) {
             cout << "  - p." << page << " : " << article << '\n';

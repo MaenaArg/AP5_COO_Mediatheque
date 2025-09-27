@@ -10,31 +10,47 @@
 
 class Mediatheque {
 private:
-    std::map<int, Ressource> ressources;
+    // Pointeur vers le singleton
+    static Mediatheque *singleton;
+    std::map<int, Ressource *> ressources;
+
+    // Constructeur
+    Mediatheque();
 
 public:
-    // Constructeur
-    Mediatheque() ;
-
     // Destructeur virtuel pour Mediatheque
     ~Mediatheque() = default;
 
+    // Accès à l’instance unique
+    static Mediatheque *getInstance();
+
     // Accesseur
-    std::map<int, Ressource> getRessources() const ;
+    std::map<int, Ressource *> getRessources() const;
 
     // Méthodes
-    static void creationRessources();
-    static void supprimerRessources(const std::string &pId);
-    static void chargerFichier(const std::string &pnomFichier);
-    static void sauvFichier(const std::string &pnomFichier);
-    static std::map<int, Ressource> rechercher(const std::string &pFiltre);
-    static void listerRessources();
-    static void afficherParID(const std::string &pId);
-    static void reinitialiser();
-    static void viderMediatheque();
-    static void reserver(const Ressource &pRessource);
-    static void emprunter(const Ressource &pRessource);
-    static void rendre(const Ressource &pRessource);
+    void creationRessources();
+
+    void supprimerRessources(const std::string &pId);
+
+    void chargerFichier(const std::string &pnomFichier);
+
+    void sauvFichier(const std::string &pnomFichier);
+
+    std::map<int, Ressource> rechercher(const std::string &pFiltre);
+
+    void listerRessources();
+
+    void afficherParID(const int &pId);
+
+    void reinitialiser();
+
+    void viderMediatheque();
+
+    void reserver(const Ressource &pRessource);
+
+    void emprunter(const Ressource &pRessource);
+
+    void rendre(const Ressource &pRessource);
 };
 
 #endif //AP5_COO_MEDIATHEQUE_MEDIATHEQUE_H

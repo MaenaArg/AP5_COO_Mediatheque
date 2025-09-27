@@ -12,7 +12,7 @@ private:
     int nbPistes;
 
 public:
-    DVD(const string &id, const string &titre, const string &auteur, int anneeCreation, const string &duree,
+    DVD(const string &titre, const string &auteur, int anneeCreation, const string &duree,
         const string &maisonProd, int nbPistes, statut statutRessource = statut::disponible);
 
     void afficherInfos() const override;

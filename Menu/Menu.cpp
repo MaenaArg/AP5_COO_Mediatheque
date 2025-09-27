@@ -19,11 +19,11 @@ void Menu::menuConnexion() {
             << std::endl;
 }
 
-void Menu::demanderIdentifiants(std::string &id, std::string &mdp) {
+void Menu::demanderIdentifiants(std::string &pId, std::string &pMdp) {
     std::cout << "Identifiant : ";
-    std::cin >> id;
+    std::cin >> pId;
     std::cout << "Mot de passe : ";
-    std::cin >> mdp;
+    std::cin >> pMdp;
 }
 
 void Menu::afficherCommandes(Utilisateur* pUtilisateur) {

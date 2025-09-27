@@ -4,12 +4,22 @@
 
 #include "Mediatheque.h"
 
-Mediatheque::Mediatheque() {
-    ressources = std::map<int, Ressource>();
+// Initialisation du singleton
+Mediatheque *Mediatheque::singleton = nullptr;
+
+Mediatheque::Mediatheque() = default;
+
+Mediatheque *Mediatheque::getInstance() {
+    if (!singleton) {
+        singleton = new Mediatheque();
+    }
+    return singleton;
 }
 
 // Accesseur
-std::map<int, Ressource> Mediatheque::getRessources() const { return ressources; }
+std::map<int, Ressource *> Mediatheque::getRessources() const {
+    return ressources;
+}
 
 // Méthodes
 // Création d'une ressource en demandant les infos nécessaires. 1ère étape -> type + infos générales . 2ème étape -> infos spécifiques
@@ -44,8 +54,14 @@ void Mediatheque::listerRessources() {
 }
 
 // Affichage d'une ressource (infos) en fonction de l'ID donné par l'utilisateur
-void Mediatheque::afficherParID(const std::string &pId) {
-    // TODO
+void Mediatheque::afficherParID(const int &pId) {
+    auto it = ressources.find(pId);
+
+    if (it != ressources.end()) {
+        it->second->afficherInfos();
+    } else {
+        std::cout << "Aucune ressource trouvée avec l'ID : " << pId << std::endl;
+    }
 }
 
 // Supprime la recherche courante
@@ -53,7 +69,7 @@ void Mediatheque::reinitialiser() {
     // TODO
 }
 
-// Suppression de toutes les ressources de la médiathèque + les ressources empruntés
+// Suppression de toutes les ressources de la médiathèque + les ressources empruntées
 void Mediatheque::viderMediatheque() {
     // TODO
 }

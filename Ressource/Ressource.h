@@ -14,25 +14,24 @@ protected:
         emprunte
     };
 
-    string id;
+    int id;
+    static int nextId;
     string titre;
     string auteur;
     int anneeCreation;
     statut statutRessource;
 
 public:
-    Ressource(const string &id,
-              const string &titre,
+    Ressource(const string &titre,
               const string &auteur,
               int anneeCreation,
               statut statutRessource)
-            : id(id), titre(titre), auteur(auteur),
+            : id(nextId++), titre(titre), auteur(auteur),
               anneeCreation(anneeCreation), statutRessource(statutRessource) {}
 
-    ~Ressource() = default;
+    virtual ~Ressource() = default;
 
-    void afficherInfos() const;
+    virtual void afficherInfos() const = 0;
 };
-
 
 #endif //AP5_COO_MEDIATHEQUE_RESSOURCE_H

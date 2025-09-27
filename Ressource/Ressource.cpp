@@ -5,3 +5,5 @@
 #include "Ressource.h"
 
 using namespace std;
+
+int Ressource::nextId = 1;
