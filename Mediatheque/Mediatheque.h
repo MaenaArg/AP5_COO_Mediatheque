@@ -7,12 +7,14 @@
 #include "../Ressource/Ressource.h"
 #include <map>
 
+class Utilisateur;
 
 class Mediatheque {
 private:
     // Pointeur vers le singleton
     static Mediatheque *singleton;
     std::map<int, Ressource *> ressources;
+    std::map<int, Utilisateur *> utilisateurs;
 
     // Constructeur
     Mediatheque();

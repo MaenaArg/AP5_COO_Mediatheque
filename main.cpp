@@ -53,7 +53,7 @@ int main() {
                     std::cin.ignore(200, '\n'); // vider la ligne entrée
                 }
             } else if (choix == "RESET") {
-                //Mediatheque::viderMediatheque();
+                mediatheque->viderMediatheque();
             } else if (choix == "LOGOUT") {
                 utilisateurActuel->seDeconnecter();
                 delete utilisateurActuel;

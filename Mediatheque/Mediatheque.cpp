@@ -3,6 +3,7 @@
 //
 
 #include "Mediatheque.h"
+#include "../Utilisateur/Utilisateur.h"
 
 // Initialisation du singleton
 Mediatheque *Mediatheque::singleton = nullptr;
@@ -71,7 +72,18 @@ void Mediatheque::reinitialiser() {
 
 // Suppression de toutes les ressources de la médiathèque + les ressources empruntées
 void Mediatheque::viderMediatheque() {
-    // TODO
+    // On parcourt toutes les ressources et on les supprime
+    for (auto &pair : ressources) {
+        delete pair.second;  // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
+    }
+    // On vide la map
+    ressources.clear();
+
+    for (auto &pair : utilisateurs) {
+        pair.second->viderEmprunts();  // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
+    }
+
+    std::cout << "La médiathèque est maintenant vide !" << std::endl;
 }
 
 // Permet à un utilisateur de réserver une ressource en lui demandant l'ID -> on récupère la ressource correspondante qu'on passe en paramètre

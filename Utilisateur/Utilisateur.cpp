@@ -22,6 +22,11 @@ void Utilisateur::setMdp(const std::string &pMdp) { mdp = pMdp; }
 bool Utilisateur::getEstConnecte() const { return estConnecte; }
 void Utilisateur::setEstConnecte(const bool &pEstConnecte) { estConnecte = pEstConnecte; }
 
+// Liste des ressources empruntées
+std::map<int, Ressource *> Utilisateur::getListEmprunt() const {
+    return listEmprunt;
+}
+
 // Liste des commandes
 std::vector<std::pair<std::string, std::string>> Utilisateur::getListeCommandes() const { return listeCommandes; }
 
@@ -60,4 +65,8 @@ void Utilisateur::afficherCommandes() const {
     for (const auto& cmd : listeCommandes) {
         std::cout << "  " << cmd.first << " - " << cmd.second << std::endl;
     }
+}
+
+void Utilisateur::viderEmprunts() {
+    listEmprunt.clear(); // Suppression des pointeurs, pas la ressource réelle -> pas de double suppression
 }

@@ -8,15 +8,16 @@
 #include <map>
 #include <string>
 
-class Utilisateur {
+class Ressource;
 
+class Utilisateur {
 protected :
     // Attributs
     std::string identifiant;
     std::string mdp;
     bool estConnecte = false;
-    /*std::map<int, std::Ressource> listEmprunt;*/
-    std::vector<std::pair<std::string, std::string>> listeCommandes;
+    std::map<int, Ressource *> listEmprunt;
+    std::vector<std::pair<std::string, std::string> > listeCommandes;
 
 public:
     // Constructeur
@@ -27,15 +28,20 @@ public:
 
     // Accesseurs
     std::string getIdentifiant() const;
+
     void setIdentifiant(const std::string &pId);
 
     std::string getMdp() const;
+
     void setMdp(const std::string &pMdp);
 
     bool getEstConnecte() const;
+
     void setEstConnecte(const bool &pEstConnecte);
 
-    std::vector<std::pair<std::string, std::string>> getListeCommandes() const ;
+    std::map<int, Ressource *> getListEmprunt() const;
+
+    std::vector<std::pair<std::string, std::string> > getListeCommandes() const;
 
     // Méthode Se Connecter avec identifiant et mdp
     virtual void seConnecter(const std::string &id, const std::string &pMdp);
@@ -48,6 +54,9 @@ public:
 
     // Méthodes communes
     void afficherCommandes() const;
+
+    // Vider la liste des ressources empruntées
+    void viderEmprunts();
 };
 
 #endif //AP5_COO_MEDIATHEQUE_UTILISATEUR_H
