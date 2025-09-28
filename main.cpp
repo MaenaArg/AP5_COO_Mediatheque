@@ -5,7 +5,7 @@
 
 int main() {
     Menu menu;
-    Utilisateur* utilisateurActuel = nullptr;
+    Utilisateur *utilisateurActuel = nullptr;
     bool boucle = true;
 
     while (boucle) {
@@ -23,25 +23,23 @@ int main() {
                     utilisateurActuel = new Administrateur(id, mdp);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                    << "----------------------------------------" << std::endl;
+                            << "----------------------------------------" << std::endl;
+                } else if (id == "client" && mdp == "client") {
+                    utilisateurActuel = new Client(id, mdp, true);
+                    utilisateurActuel->seConnecter(id, mdp);
+                    std::cout << "Connexion réussie, bonjour  " << id << "!\n"
+                            << "----------------------------------------" << std::endl;
                 } else {
                     std::cout << "Echec de connexion, identifiant ou mot de passe incorrect." << std::endl;
                 }
-            }
-
-            else if (choix == "GUEST") {
-                utilisateurActuel = new Client("invite", "");
+            } else if (choix == "GUEST") {
+                utilisateurActuel = new Client("invite", "", false);
                 std::cout << "Bonjour, vous êtes un invité ! " << std::endl;
-            }
-
-            else if (choix == "BYE") {
+            } else if (choix == "BYE") {
                 boucle = false;
-            }
-
-            else {
+            } else {
                 std::cout << "Commande inconnue." << std::endl;
             }
-
         } else {
             // Utilisateur connecté, on affiche ses commandes
             menu.afficherCommandes(utilisateurActuel);
