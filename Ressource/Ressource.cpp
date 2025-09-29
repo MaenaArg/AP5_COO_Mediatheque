@@ -24,8 +24,6 @@ std::string Ressource::statutToString(statut s) {
 int Ressource::nextId = 1;
 
 int Ressource::getID() const { return id; }
-string Ressource::getTitre() const { return titre; }
-string Ressource::getAuteur() const { return auteur; }
 
 Ressource::statut Ressource::getStatutRessource() const { return statutRessource; }
 void Ressource::setStatutRessource(const statut &pStatut) { statutRessource = pStatut; }

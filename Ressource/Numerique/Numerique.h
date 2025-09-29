@@ -7,16 +7,18 @@
 
 #include "../Ressource.h"
 
-using namespace std;
-
 class Numerique : public Ressource {
 protected:
-    string type;
+    std::string type;
     int taille;
-    string url;
+    std::string url;
 public:
-    Numerique(const string &titre, const string &auteur, int anneeCreation, const string &type,
-              int taille, const string &url, statut statutRessource = DISPONIBLE);
+    Numerique(const std::string &titre, const std::string &auteur, int anneeCreation, const std::string &type,
+              int taille, const std::string &url, statut statutRessource = DISPONIBLE);
+
+    const std::string& getType() const { return type; }
+    int getTaille() const { return taille; }
+    const std::string& getUrl() const { return url; }
 
     virtual ~Numerique() {}
 

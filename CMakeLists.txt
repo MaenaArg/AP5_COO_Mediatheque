@@ -25,6 +25,8 @@ add_executable(AP5_COO_mediatheque
         Menu/Menu.h
         Mediatheque/Mediatheque.cpp
         Mediatheque/Mediatheque.h
+        sauvegarde/sauvegarde.cpp
+        sauvegarde/sauvegarde.h
 )
 
 # Inclure le dossier racine pour les headers (optionnel mais pratique)
@@ -44,3 +46,7 @@ endif ()
 if (WIN32)
     target_compile_definitions(AP5_COO_mediatheque PRIVATE WIN32_LEAN_AND_MEAN NOMINMAX)
 endif ()
+
+target_compile_definitions(AP5_COO_mediatheque PRIVATE
+        PROJECT_DATA_DIR="${CMAKE_SOURCE_DIR}/data"
+)

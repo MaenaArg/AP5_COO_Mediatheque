@@ -5,6 +5,8 @@
 #include "Mediatheque.h"
 #include "../Utilisateur/Utilisateur.h"
 #include "../Ressource/Ressource.h"
+#include "../sauvegarde/sauvegarde.h"
+#include <iostream>
 
 // Initialisation du singleton
 Mediatheque *Mediatheque::singleton = nullptr;
@@ -29,10 +31,6 @@ int Mediatheque::ajouterRessource(Ressource *r) {
     if (!r) return -1;
     const int id = nextId++;
     ressources[id] = r;
-
-    // Si ta classe Ressource possède un setter d'ID, décommente :
-    // r->setId(id);
-
     return id;
 }
 
@@ -53,14 +51,28 @@ void Mediatheque::supprimerRessources(const int &pId) {
     }
 }
 
+std::vector<std::pair<int, const Ressource *>> Mediatheque::snapshot() const {
+    std::vector<std::pair<int, const Ressource *>> v;
+    v.reserve(ressources.size());
+    for (const auto &kv: ressources) v.emplace_back(kv.first, kv.second);
+    return v;
+}
+
+int Mediatheque::ajouterRessourceAvecId(int id, Ressource *r) {
+    if (!r) return -1;
+    ressources[id] = r;
+    if (id >= nextId) nextId = id + 1; // garde la continuité des IDs
+    return id;
+}
+
 // Mise à jour la liste des ressources présente dans la médiathèque : appelé quand création, suppression et vider médiathèque
-void Mediatheque::chargerFichier(const std::string &pnomFichier) {
-    // TODO
+void Mediatheque::chargerFichier(const std::string &nomFichier) {
+    sauvegarde::load(nomFichier, *this);
 }
 
 // Sauvegarde d'un fichier contenant les ressources en demandant le nom à l'utilisateur
-void Mediatheque::sauvFichier(const std::string &pnomFichier) {
-    // TODO
+void Mediatheque::sauvFichier(const std::string &nomFichier) const {
+    sauvegarde::save(nomFichier, *this);
 }
 
 // Recherche en fonction d'un filtre demandé à l'utilisateur (peut s'appliquer à toutes les infos de la ressource)
@@ -121,12 +133,13 @@ void Mediatheque::reserver(Utilisateur *pUtilisateur, int pId) {
             ressource->setStatutRessource(Ressource::statut::RESERVE);
 
             // Ajout de la ressource dans la liste de réservation de l’utilisateur
-            pUtilisateur->ajouterReservation(pId, ressource); // Ajout de la ressource dans la liste des réservations du client
+            pUtilisateur->ajouterReservation(pId,
+                                             ressource); // Ajout de la ressource dans la liste des réservations du client
 
             std::cout << "La ressource " << pId << " a été réservée." << std::endl;
         } else {
             std::cout << "Impossible de réserver la ressource " << pId << ", elle est déjà réservée ou empruntée." <<
-                    std::endl;
+                      std::endl;
         }
     } else {
         std::cout << "Aucune ressource trouvée avec l'ID : " << pId << std::endl;
@@ -145,12 +158,15 @@ void Mediatheque::emprunter(Utilisateur *pUtilisateur, int pId) {
         Ressource *ressource = it->second;
 
         // Si la resource est disponible ou qu'elle a été réservée par l'utilisateur en cours
-        if (ressource->getStatutRessource() == Ressource::statut::DISPONIBLE || ressource->getStatutRessource() == Ressource::statut::RESERVE && pUtilisateur->rechercheResResaParID(ressource->getID())) {
+        if (ressource->getStatutRessource() == Ressource::statut::DISPONIBLE ||
+            ressource->getStatutRessource() == Ressource::statut::RESERVE &&
+            pUtilisateur->rechercheResResaParID(ressource->getID())) {
             ressource->setStatutRessource(Ressource::statut::EMPRUNTE);
 
             // Ajout de la ressource dans la liste d’emprunts de l’utilisateur
             pUtilisateur->ajouterEmprunt(pId, ressource); // Ajout de la ressource dans la liste des emprunts du client
-            pUtilisateur->supprimerReservation(pId); // Suppression de la ressource réservée de la liste des réservations
+            pUtilisateur->supprimerReservation(
+                    pId); // Suppression de la ressource réservée de la liste des réservations
 
             std::cout << "La ressource " << pId << " a été empruntée." << std::endl;
         } else {

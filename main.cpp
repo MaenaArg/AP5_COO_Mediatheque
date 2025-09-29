@@ -8,8 +8,11 @@
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
+
 #include <windows.h>
+
 #endif
+
 #include <clocale>
 #include <iostream>
 
@@ -46,12 +49,12 @@ int main() {
                     utilisateurActuel = new Administrateur(id, mdp);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                            << "----------------------------------------" << std::endl;
+                              << "----------------------------------------" << std::endl;
                 } else if (id == "client" && mdp == "client") {
                     utilisateurActuel = new Client(id, mdp, true);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                            << "----------------------------------------" << std::endl;
+                              << "----------------------------------------" << std::endl;
                 } else {
                     std::cout << "Echec de connexion, identifiant ou mot de passe incorrect." << std::endl;
                 }
@@ -113,6 +116,25 @@ int main() {
                     std::cout << "Veuillez fournir un identifiant après RESERVE. Syntaxe : RESERVE <id>\n";
                     std::cin.clear(); // Réinitialisation de l'entrée cin
                     std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+
+            } else if (choix == "SAVE") {
+                std::string path;
+                std::cout << "Fichier cible (ex: mediatheque.txt) : ";
+                std::getline(std::cin >> std::ws, path);
+                if (path.empty()) {
+                    std::cout << "Nom de fichier vide.\n";
+                } else {
+                    mediatheque->sauvFichier(path);
+                }
+            } else if (choix == "LOAD") {
+                std::string path;
+                std::cout << "Fichier à charger : ";
+                std::getline(std::cin >> std::ws, path);
+                if (path.empty()) {
+                    std::cout << "Nom de fichier vide.\n";
+                } else {
+                    mediatheque->chargerFichier(path);
                 }
             } else if (choix == "SHOW-BORROW") {
                 utilisateurActuel->afficherEmprunts();

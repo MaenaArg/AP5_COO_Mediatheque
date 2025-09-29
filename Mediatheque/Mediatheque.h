@@ -7,6 +7,7 @@
 
 #include "../Ressource/Ressource.h"
 #include <map>
+#include <vector>
 
 class Utilisateur;
 
@@ -38,9 +39,16 @@ public:
 
     void supprimerRessources(const int &pId);
 
-    void chargerFichier(const std::string &pnomFichier);
+    //--partie sauvegarde fichier
 
-    void sauvFichier(const std::string &pnomFichier);
+    std::vector<std::pair<int, const Ressource *>> snapshot() const;
+
+    int ajouterRessourceAvecId(int id, Ressource *r);
+
+    void chargerFichier(const std::string &nomFichier);
+
+    void sauvFichier(const std::string &nomFichier) const;
+    //--
 
     std::map<int, Ressource> rechercher(const std::string &pFiltre);
 

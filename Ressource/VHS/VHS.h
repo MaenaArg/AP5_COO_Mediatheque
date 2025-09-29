@@ -7,15 +7,16 @@
 
 #include "../Ressource.h"
 
-using namespace std;
-
 class VHS : public Ressource {
 protected:
-    string duree;
-    string maisonProd;
+    std::string duree;
+    std::string maisonProd;
 public:
-    VHS(const string &titre, const string &auteur, int anneeCreation, const string &duree,
-        const string &maisonProd, statut statutRessource = DISPONIBLE);
+    VHS(const std::string &titre, const std::string &auteur, int anneeCreation, const std::string &duree,
+        const std::string &maisonProd, statut statutRessource = DISPONIBLE);
+
+    const std::string& getDuree() const { return duree; }
+    const std::string& getMaisonProd() const { return maisonProd; }
 
     virtual ~VHS() {}
 

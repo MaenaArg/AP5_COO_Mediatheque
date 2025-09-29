@@ -28,17 +28,17 @@ public:
     //création de ressource
     Ressource* demanderInfoRessources();
 
-    Ressource* demanderInfoLivre(string titre, string auteur, int anneeCreation);
+    Ressource* demanderInfoLivre(std::string titre, std::string auteur, int anneeCreation);
 
-    Ressource* demanderInfoRevue(string titre, string auteur, int anneeCreation);
+    Ressource* demanderInfoRevue(std::string titre, std::string auteur, int anneeCreation);
 
-    Ressource* demanderInfoCd(string titre, string auteur, int anneeCreation);
+    Ressource* demanderInfoCd(std::string titre, std::string auteur, int anneeCreation);
 
-    Ressource* demanderInfoVhs(string titre, string auteur, int anneeCreation);
+    Ressource* demanderInfoVhs(std::string titre, std::string auteur, int anneeCreation);
 
-    Ressource* demanderInfoDVD(string titre, string auteur, int annee);
+    Ressource* demanderInfoDVD(std::string titre, std::string auteur, int annee);
 
-    Ressource* demanderInfoNumerique(string titre, string auteur, int anneeCreation);
+    Ressource* demanderInfoNumerique(std::string titre, std::string auteur, int anneeCreation);
 
     // Menu d'accueil
     void afficherCommandes(Utilisateur *u);

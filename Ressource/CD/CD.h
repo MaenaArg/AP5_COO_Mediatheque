@@ -7,16 +7,18 @@
 
 #include "../Ressource.h"
 
-using namespace std;
-
 class CD : public Ressource {
 protected:
     int nbPistes;
-    string duree;
-    string maisonProd;
+    std::string duree;
+    std::string maisonProd;
 public:
-    CD(const string &titre, const string &auteur, int anneeCreation, const string &duree, int nbPistes,
-       const string &maisonProd, statut statutRessource = DISPONIBLE);
+    CD(const std::string &titre, const std::string &auteur, int anneeCreation, const std::string &duree, int nbPistes,
+       const std::string &maisonProd, statut statutRessource = DISPONIBLE);
+
+    const std::string& getDuree() const { return duree; }
+    int getNbPistes() const { return nbPistes; }
+    const std::string& getMaisonProd() const { return maisonProd; }
 
     virtual ~CD() {}
 
