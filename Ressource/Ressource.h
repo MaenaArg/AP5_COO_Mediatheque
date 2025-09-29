@@ -22,6 +22,10 @@ protected:
     statut statutRessource;
 
 public:
+    static const char *statutToCString(statut s);
+
+    static std::string statutToString(statut s); // si tu préfères std::string
+
     Ressource(const string &titre,
               const string &auteur,
               int anneeCreation,
