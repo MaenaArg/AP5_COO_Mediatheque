@@ -27,7 +27,7 @@ std::vector<std::pair<std::string, std::string>> Utilisateur::getListeCommandes(
 
 // Méthode afficher les informations d'un utilisateur
 void Utilisateur::afficherInfos() {
-    std::cout << "Identifiant : " << " " << identifiant << " \n"
+    std::cout << "Identifiant : " << identifiant << " \n"
               << "Mot de passe : " << mdp << std::endl;
 }
 
@@ -35,10 +35,8 @@ void Utilisateur::afficherInfos() {
 void Utilisateur::seConnecter(const std::string &pId, const std::string &pMdp) {
     if (pId == identifiant && pMdp == mdp && !estConnecte) {
         estConnecte = true;
-        /*std::cout << "Connexion réussie, bonjour  " << identifiant << "!" << std::endl;*/
     } else {
         estConnecte = false;
-        /*std::cout << "Echec de connexion, identifiant ou mot de passe incorrect.";*/
     }
 }
 
@@ -46,10 +44,6 @@ void Utilisateur::seConnecter(const std::string &pId, const std::string &pMdp) {
 void Utilisateur::seDeconnecter() {
     if (estConnecte) {
         estConnecte = false;
-        /*std::cout << "Déconnexion réussie, au revoir " << identifiant << " !";
-
-        Menu menu;
-        menu.menuConnexion();*/
     } else {
         std::cout << "Echec de deconnexion.";
     }

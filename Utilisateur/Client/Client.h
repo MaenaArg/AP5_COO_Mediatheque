@@ -7,21 +7,33 @@
 #include "../Utilisateur.h"
 
 class Client : public Utilisateur {
-
 public:
     // Constructeur
-    Client(const std::string &id, const std::string &mdp) : Utilisateur(id, mdp) {
-        listeCommandes = {
-            {"LIST", "Lister les ressources"},
-            {"SEARCH", "Filtrer les ressources"},
-            {"SHOW", "Afficher une ressource par ID"},
-            {"CLEAR", "Réinitialiser la recherche"},
-            {"RELOAD", "Recharger les données"},
-            {"BORROW", "Emprunter une ressource"},
-            {"RETURN", "Rendre une ressource"},
-            {"RESERVE", "Reserver une ressource"},
-            {"BYE", "Quitter"},
-        };
+    Client(const std::string &id, const std::string &mdp, bool connecte = false) : Utilisateur(id, mdp) {
+        estConnecte = connecte;
+        if (estConnecte) {
+            listeCommandes = {
+                {"LIST", "Lister les ressources"},
+                {"SEARCH", "Filtrer les ressources"},
+                {"SHOW", "Afficher une ressource par ID"},
+                {"CLEAR", "Réinitialiser la recherche"},
+                {"RELOAD", "Recharger les données"},
+                {"BORROW", "Emprunter une ressource"},
+                {"RETURN", "Rendre une ressource"},
+                {"RESERVE", "Reserver une ressource"},
+                {"LOGOUT ", "Deconnexion"},
+                {"BYE", "Quitter"},
+            };
+        } else {
+            listeCommandes = {
+                {"LIST", "Lister les ressources"},
+                {"SEARCH", "Filtrer les ressources"},
+                {"SHOW", "Afficher une ressource par ID"},
+                {"CLEAR", "Réinitialiser la recherche"},
+                {"RELOAD", "Recharger les données"},
+                {"BYE", "Quitter"},
+            };
+        }
     }
 
     // Destructeur virtuel pour Utilisateur
