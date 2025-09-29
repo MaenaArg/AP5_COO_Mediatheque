@@ -29,8 +29,20 @@ void Mediatheque::creationRessources() {
 }
 
 // Suppression d'une ressource en demandant l'ID correspondant à l'utilisateur
-void Mediatheque::supprimerRessources(const std::string &pId) {
-    // TODO
+void Mediatheque::supprimerRessources(const int &pId) {
+    auto it = ressources.find(pId);
+
+    if (it != ressources.end()) {
+        // Libérer la mémoire de la ressource
+        delete it->second;
+
+        // Supprimer la ressource de la map
+        ressources.erase(it);
+
+        std::cout << "La ressource d'ID " << pId << " a été supprimée." << std::endl;
+    } else {
+        std::cout << "Aucune ressource trouvée avec l'ID : " << pId << std::endl;
+    }
 }
 
 // Mise à jour la liste des ressources présente dans la médiathèque : appelé quand création, suppression et vider médiathèque

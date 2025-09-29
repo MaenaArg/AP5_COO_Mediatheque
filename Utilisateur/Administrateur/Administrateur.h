@@ -16,7 +16,7 @@ public:
             {"SHOW <id>", "Afficher une ressource par ID"},
             {"CLEAR", "Réinitialiser la recherche"},
             {"ADD", "Créer une ressource"},
-            {"DELETE", "Supprimer une ressource"},
+            {"DELETE <id>", "Supprimer une ressource"},
             {"SAVE", "Sauvegarder"},
             {"LOAD", "Charger"},
             {"RESET", "Vider la médiathèque"},
