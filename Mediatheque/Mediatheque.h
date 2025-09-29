@@ -4,6 +4,7 @@
 
 #ifndef AP5_COO_MEDIATHEQUE_MEDIATHEQUE_H
 #define AP5_COO_MEDIATHEQUE_MEDIATHEQUE_H
+
 #include "../Ressource/Ressource.h"
 #include <map>
 
@@ -15,6 +16,7 @@ private:
     static Mediatheque *singleton;
     std::map<int, Ressource *> ressources;
     std::map<int, Utilisateur *> utilisateurs;
+    int nextId = 1;
 
     // Constructeur
     Mediatheque();
@@ -30,6 +32,10 @@ public:
     std::map<int, Ressource *> getRessources() const;
 
     // Méthodes
+
+    //ajouter une ressource
+    int ajouterRessource(Ressource *r);
+
     void creationRessources();
 
     void supprimerRessources(const int &pId);

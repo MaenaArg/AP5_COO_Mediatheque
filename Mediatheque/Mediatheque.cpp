@@ -17,6 +17,17 @@ Mediatheque *Mediatheque::getInstance() {
     return singleton;
 }
 
+int Mediatheque::ajouterRessource(Ressource *r) {
+    if (!r) return -1;
+    const int id = nextId++;
+    ressources[id] = r;
+
+    // Si ta classe Ressource possède un setter d'ID, décommente :
+    // r->setId(id);
+
+    return id;
+}
+
 // Accesseur
 std::map<int, Ressource *> Mediatheque::getRessources() const {
     return ressources;
@@ -57,9 +68,9 @@ void Mediatheque::sauvFichier(const std::string &pnomFichier) {
 
 // Recherche en fonction d'un filtre demandé à l'utilisateur (peut s'appliquer à toutes les infos de la ressource)
 // + Conserver la liste des résultats tant que l'utilisateur ne tape pas la commande "CLEAR"
-std::map<int, Ressource> Mediatheque::rechercher(const std::string &pFiltre) {
-    // TODO
-}
+//std::map<int, Ressource> Mediatheque::rechercher(const std::string &pFiltre) {
+// TODO
+//}
 
 // Affichage des infos des ressources  (compactes : titre, auteur, année) en fonction de la recherche en cours
 void Mediatheque::listerRessources() {
@@ -85,13 +96,13 @@ void Mediatheque::reinitialiser() {
 // Suppression de toutes les ressources de la médiathèque + les ressources empruntées
 void Mediatheque::viderMediatheque() {
     // On parcourt toutes les ressources et on les supprime
-    for (auto &pair : ressources) {
+    for (auto &pair: ressources) {
         delete pair.second;  // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
     }
     // On vide la map
     ressources.clear();
 
-    for (auto &pair : utilisateurs) {
+    for (auto &pair: utilisateurs) {
         pair.second->viderEmprunts();  // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
     }
 
