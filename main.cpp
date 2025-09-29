@@ -43,7 +43,16 @@ int main() {
             std::string choix = menu.demanderCommande();
 
             // TODO LES AUTRES COMMANDES
-            if (choix == "SHOW") {
+            if (choix == "DELETE") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->supprimerRessources(id);
+                } else {
+                    std::cout <<  "Veuillez fournir un identifiant après DELETE. Syntaxe : DELETE <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "SHOW") {
                 int id;
                 if (std::cin >> id) {
                     mediatheque->afficherParID(id);

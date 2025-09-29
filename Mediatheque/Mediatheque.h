@@ -32,7 +32,7 @@ public:
     // Méthodes
     void creationRessources();
 
-    void supprimerRessources(const std::string &pId);
+    void supprimerRessources(const int &pId);
 
     void chargerFichier(const std::string &pnomFichier);
 
