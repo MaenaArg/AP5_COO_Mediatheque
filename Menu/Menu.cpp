@@ -166,7 +166,7 @@ Ressource *Menu::demanderInfoDVD(string titre, string auteur, int annee) {
 
     std::cout << "Type de la ressource à créer : \n"
               << "5 DVD \n"
-              << "Durée de la DVD :\n";
+              << "Durée du DVD :\n";
     std::getline(std::cin, duree);
     std::cout << "Maison de production : ";
     std::getline(std::cin, maisonProd);

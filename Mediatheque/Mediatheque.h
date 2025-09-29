@@ -36,8 +36,6 @@ public:
     //ajouter une ressource
     int ajouterRessource(Ressource *r);
 
-    void creationRessources();
-
     void supprimerRessources(const int &pId);
 
     void chargerFichier(const std::string &pnomFichier);
@@ -54,11 +52,11 @@ public:
 
     void viderMediatheque();
 
-    void reserver(const Ressource &pRessource);
+    void reserver(Utilisateur *pUtilisateur, int pId);
 
-    void emprunter(const Ressource &pRessource);
+    void emprunter(Utilisateur *pUtilisateur, int pId);
 
-    void rendre(const Ressource &pRessource);
+    void rendre(Utilisateur *pUtilisateur, int pId);
 };
 
 #endif //AP5_COO_MEDIATHEQUE_MEDIATHEQUE_H

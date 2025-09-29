@@ -15,7 +15,7 @@ protected:
     string maisonProd;
 public:
     VHS(const string &titre, const string &auteur, int anneeCreation, const string &duree,
-        const string &maisonProd, statut statutRessource = disponible);
+        const string &maisonProd, statut statutRessource = DISPONIBLE);
 
     virtual ~VHS() {}
 

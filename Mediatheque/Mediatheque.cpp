@@ -4,6 +4,7 @@
 
 #include "Mediatheque.h"
 #include "../Utilisateur/Utilisateur.h"
+#include "../Ressource/Ressource.h"
 
 // Initialisation du singleton
 Mediatheque *Mediatheque::singleton = nullptr;
@@ -17,6 +18,13 @@ Mediatheque *Mediatheque::getInstance() {
     return singleton;
 }
 
+// Accesseur
+std::map<int, Ressource *> Mediatheque::getRessources() const {
+    return ressources;
+}
+
+// Méthodes
+// Création d'une ressource en demandant les infos nécessaires. 1ère étape -> type + infos générales . 2ème étape -> infos spécifiques
 int Mediatheque::ajouterRessource(Ressource *r) {
     if (!r) return -1;
     const int id = nextId++;
@@ -26,17 +34,6 @@ int Mediatheque::ajouterRessource(Ressource *r) {
     // r->setId(id);
 
     return id;
-}
-
-// Accesseur
-std::map<int, Ressource *> Mediatheque::getRessources() const {
-    return ressources;
-}
-
-// Méthodes
-// Création d'une ressource en demandant les infos nécessaires. 1ère étape -> type + infos générales . 2ème étape -> infos spécifiques
-void Mediatheque::creationRessources() {
-    // TODO
 }
 
 // Suppression d'une ressource en demandant l'ID correspondant à l'utilisateur
@@ -97,29 +94,94 @@ void Mediatheque::reinitialiser() {
 void Mediatheque::viderMediatheque() {
     // On parcourt toutes les ressources et on les supprime
     for (auto &pair: ressources) {
-        delete pair.second;  // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
+        delete pair.second; // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
     }
     // On vide la map
     ressources.clear();
 
     for (auto &pair: utilisateurs) {
-        pair.second->viderEmprunts();  // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
+        pair.second->viderEmprunts(); // Libération de la mémoire du pointeur Ressource* -> évite les fuites mémoire
     }
 
     std::cout << "La médiathèque est maintenant vide !" << std::endl;
 }
 
-// Permet à un utilisateur de réserver une ressource en lui demandant l'ID -> on récupère la ressource correspondante qu'on passe en paramètre
-void Mediatheque::reserver(const Ressource &pRessource) {
-    // TODO
+// Permet à un utilisateur de réserver une ressource en lui demandant l'ID
+void Mediatheque::reserver(Utilisateur *pUtilisateur, int pId) {
+    if (!pUtilisateur || !pUtilisateur->getEstConnecte()) {
+        std::cout << "Erreur : aucun utilisateur connecté." << std::endl;
+        return;
+    }
+
+    auto it = ressources.find(pId);
+    if (it != ressources.end()) {
+        Ressource *ressource = it->second;
+
+        if (ressource->getStatutRessource() == Ressource::statut::DISPONIBLE) {
+            ressource->setStatutRessource(Ressource::statut::RESERVE);
+
+            // Ajout de la ressource dans la liste de réservation de l’utilisateur
+            pUtilisateur->ajouterReservation(pId, ressource); // Ajout de la ressource dans la liste des réservations du client
+
+            std::cout << "La ressource " << pId << " a été réservée." << std::endl;
+        } else {
+            std::cout << "Impossible de réserver la ressource " << pId << ", elle est déjà réservée ou empruntée." <<
+                    std::endl;
+        }
+    } else {
+        std::cout << "Aucune ressource trouvée avec l'ID : " << pId << std::endl;
+    }
 }
 
-// Permet à un utilisateur d'emprunter une ressource en lui demandant l'ID -> on récupère la ressource correspondante qu'on passe en paramètre
-void Mediatheque::emprunter(const Ressource &pRessource) {
-    // TODO
+// Permet à un utilisateur d'emprunter une ressource en lui demandant l'ID
+void Mediatheque::emprunter(Utilisateur *pUtilisateur, int pId) {
+    if (!pUtilisateur || !pUtilisateur->getEstConnecte()) {
+        std::cout << "Erreur : aucun utilisateur connecté." << std::endl;
+        return;
+    }
+
+    auto it = ressources.find(pId);
+    if (it != ressources.end()) {
+        Ressource *ressource = it->second;
+
+        // Si la resource est disponible ou qu'elle a été réservée par l'utilisateur en cours
+        if (ressource->getStatutRessource() == Ressource::statut::DISPONIBLE || ressource->getStatutRessource() == Ressource::statut::RESERVE && pUtilisateur->rechercheResResaParID(ressource->getID())) {
+            ressource->setStatutRessource(Ressource::statut::EMPRUNTE);
+
+            // Ajout de la ressource dans la liste d’emprunts de l’utilisateur
+            pUtilisateur->ajouterEmprunt(pId, ressource); // Ajout de la ressource dans la liste des emprunts du client
+            pUtilisateur->supprimerReservation(pId); // Suppression de la ressource réservée de la liste des réservations
+
+            std::cout << "La ressource " << pId << " a été empruntée." << std::endl;
+        } else {
+            std::cout << "Impossible d'emprunter : ressource déjà empruntée ou réservée." << std::endl;
+        }
+    } else {
+        std::cout << "Aucune ressource trouvée avec l'ID : " << pId << std::endl;
+    }
 }
 
-// Permet à un utilisateur de rendre une ressource en lui demandant l'ID -> on récupère la ressource correspondante qu'on passe en paramètre
-void Mediatheque::rendre(const Ressource &pRessource) {
-    // TODO
+// Permet à un utilisateur de rendre une ressource en lui demandant l'ID
+void Mediatheque::rendre(Utilisateur *pUtilisateur, int pId) {
+    if (!pUtilisateur || !pUtilisateur->getEstConnecte()) {
+        std::cout << "Erreur : aucun utilisateur connecté." << std::endl;
+        return;
+    }
+    auto it = ressources.find(pId);
+    if (it != ressources.end()) {
+        Ressource *ressource = it->second;
+
+        if (ressource->getStatutRessource() == Ressource::statut::EMPRUNTE) {
+            ressource->setStatutRessource(Ressource::statut::DISPONIBLE);
+
+            // Retirer la ressource de la liste des emprunts
+            pUtilisateur->supprimerEmprunt(pId);
+
+            std::cout << "La ressource " << pId << " a été rendue." << std::endl;
+        } else {
+            std::cout << "Impossible de rendre : la ressource n'est pas empruntée." << std::endl;
+        }
+    } else {
+        std::cout << "Aucune ressource trouvée avec l'ID : " << pId << std::endl;
+    }
 }

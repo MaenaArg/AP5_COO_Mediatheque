@@ -12,7 +12,7 @@ public:
     Administrateur(const std::string &id, const std::string &mdp) : Utilisateur(id, mdp) {
         listeCommandes = {
             {"LIST", "Lister les ressources"},
-            {"SEARCH", "Filtrer les ressources"},
+            {"SEARCH <filter>", "Filtrer les ressources"},
             {"SHOW <id>", "Afficher une ressource par ID"},
             {"CLEAR", "Réinitialiser la recherche"},
             {"ADD", "Créer une ressource"},

@@ -8,20 +8,20 @@ using namespace std;
 
 class Ressource {
 protected:
-    enum statut {
-        disponible,
-        reserve,
-        emprunte
-    };
-
     int id;
     static int nextId;
     string titre;
     string auteur;
     int anneeCreation;
-    statut statutRessource;
+
 
 public:
+    enum statut {
+        DISPONIBLE,
+        RESERVE,
+        EMPRUNTE
+    };
+    statut statutRessource;
     static const char *statutToCString(statut s);
 
     static std::string statutToString(statut s); // si tu préfères std::string
@@ -34,6 +34,13 @@ public:
               anneeCreation(anneeCreation), statutRessource(statutRessource) {}
 
     virtual ~Ressource() = default;
+
+    // Accesseurs
+    int getID() const;
+    string getTitre() const;
+    string getAuteur() const;
+    statut getStatutRessource() const;
+    void setStatutRessource(const statut &pStatut);
 
     virtual void afficherInfos() const = 0;
 };

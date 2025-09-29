@@ -87,6 +87,37 @@ int main() {
                     std::cin.clear(); // Réinitialisation de l'entrée cin
                     std::cin.ignore(200, '\n'); // vider la ligne entrée
                 }
+            } else if (choix == "BORROW") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->emprunter(utilisateurActuel, id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après BORROW. Syntaxe : BORROW <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "RETURN") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->rendre(utilisateurActuel, id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après RETURN. Syntaxe : RETURN <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "RESERVE") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->reserver(utilisateurActuel, id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après RESERVE. Syntaxe : RESERVE <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "SHOW-BORROW") {
+                utilisateurActuel->afficherEmprunts();
+            } else if (choix == "SHOW-RESERVE") {
+                utilisateurActuel->afficherReservations();
             } else if (choix == "RESET") {
                 mediatheque->viderMediatheque();
             } else if (choix == "LOGOUT") {

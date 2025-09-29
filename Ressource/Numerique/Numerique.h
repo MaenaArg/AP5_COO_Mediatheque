@@ -16,7 +16,7 @@ protected:
     string url;
 public:
     Numerique(const string &titre, const string &auteur, int anneeCreation, const string &type,
-              int taille, const string &url, statut statutRessource = statut::disponible);
+              int taille, const string &url, statut statutRessource = DISPONIBLE);
 
     virtual ~Numerique() {}
 

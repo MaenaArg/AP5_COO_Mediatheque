@@ -4,21 +4,28 @@
 
 #include "Ressource.h"
 
-const char *Ressource::statutToCString(Ressource::statut s) {
+const char *Ressource::statutToCString(statut s) {
     switch (s) {
-        case Ressource::disponible:
+        case DISPONIBLE:
             return "disponible";
-        case Ressource::reserve:
+        case RESERVE:
             return "reservé";
-        case Ressource::emprunte:
+        case EMPRUNTE:
             return "emprunté";
         default:
             return "inconnu";
     }
 }
 
-std::string Ressource::statutToString(Ressource::statut s) {
+std::string Ressource::statutToString(statut s) {
     return std::string(statutToCString(s));
 }
 
 int Ressource::nextId = 1;
+
+int Ressource::getID() const { return id; }
+string Ressource::getTitre() const { return titre; }
+string Ressource::getAuteur() const { return auteur; }
+
+Ressource::statut Ressource::getStatutRessource() const { return statutRessource; }
+void Ressource::setStatutRessource(const statut &pStatut) { statutRessource = pStatut; }

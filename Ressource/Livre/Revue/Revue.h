@@ -19,7 +19,7 @@ private:
 public:
     Revue(const string &titre, const string &auteur, int anneeCreation, int nbPages,
           const string &collection, const string &resume, const string &editeur, const map<int, string> &articles,
-          int nbArticle, statut statutRessource = statut::disponible);
+          int nbArticle, statut statutRessource = DISPONIBLE);
 
     void afficherInfos() const override;
 };
