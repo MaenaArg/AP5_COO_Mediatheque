@@ -52,7 +52,10 @@ Ressource *Menu::demanderInfoRessources() {
     else if (typeStr == "4" || typeStr == "vhs") type = 4;
     else if (typeStr == "5" || typeStr == "dvd") type = 5;
     else if (typeStr == "6" || typeStr == "numerique" || typeStr == "numerique " || typeStr == "num") type = 6;
-    else { std::cout << "Choix invalide.\n"; return nullptr; }
+    else {
+        std::cout << "Choix invalide.\n";
+        return nullptr;
+    }
 
     // -- infos communes
     std::string titre, auteur;
@@ -74,14 +77,26 @@ Ressource *Menu::demanderInfoRessources() {
 
     // -- dispatch
     switch (type) {
-        case 1: return demanderInfoLivre(titre, auteur, anneeCreation);
-        case 2: return demanderInfoRevue(titre, auteur, anneeCreation);
-        case 3: return demanderInfoCd(titre, auteur, anneeCreation);
-        case 4: return demanderInfoVhs(titre, auteur, anneeCreation);
-        case 5: return demanderInfoDVD(titre, auteur, anneeCreation);
-        case 6: return demanderInfoNumerique(titre, auteur, anneeCreation);
-        default: std::cout << "Choix invalide.\n"; return nullptr;
+        case 1:
+            return demanderInfoLivre(titre, auteur, anneeCreation);
+        case 2:
+            return demanderInfoRevue(titre, auteur, anneeCreation);
+        case 3:
+            return demanderInfoCd(titre, auteur, anneeCreation);
+        case 4:
+            return demanderInfoVhs(titre, auteur, anneeCreation);
+        case 5:
+            return demanderInfoDVD(titre, auteur, anneeCreation);
+        case 6:
+            return demanderInfoNumerique(titre, auteur, anneeCreation);
+        default:
+            std::cout << "Choix invalide.\n";
+            return nullptr;
     }
+}
+
+bool is_number(const std::string &s) {
+    return !s.empty() && std::find_if(s.begin(), s.end(), [](unsigned char c) { return !std::isdigit(c); }) == s.end();
 }
 
 Ressource *Menu::demanderInfoLivre(std::string titre, std::string auteur, int annee) {
@@ -89,14 +104,16 @@ Ressource *Menu::demanderInfoLivre(std::string titre, std::string auteur, int an
     std::string collection;
     std::string resume;
 
-    std::cout << "Type de la ressource à créer : \n"
-              << "1 Livre\n"
-              << "Nombre de pages :\n";
+    std::cout << "Nombre de pages :\n";
     std::getline(std::cin, nbPages);
     std::cout << "Collection : ";
     std::getline(std::cin, collection);
     std::cout << "Résumé : ";
     std::getline(std::cin, resume);
+
+    if (!is_number(nbPages)) {
+        nbPages = "0";
+    }
 
     return new Livre(titre, auteur, annee, stoi(nbPages), collection, resume);
 }
@@ -109,9 +126,7 @@ Ressource *Menu::demanderInfoRevue(std::string titre, std::string auteur, int an
     std::map<int, std::string> articles;
     std::string nbArticles;
 
-    std::cout << "Type de la ressource à créer : \n"
-              << "2 Revue\n"
-              << "Nombre de pages :\n";
+    std::cout << "Nombre de pages :\n";
     std::getline(std::cin, nbPages);
     std::cout << "Collection : ";
     std::getline(std::cin, collection);
@@ -122,6 +137,14 @@ Ressource *Menu::demanderInfoRevue(std::string titre, std::string auteur, int an
     std::cout << "Nombre d'articles : ";
     std::getline(std::cin, nbArticles);
     std::cout << "Articles : ";
+
+    if (!is_number(nbPages)) {
+        nbPages = "0";
+    }
+
+    if (!is_number(nbArticles)) {
+        nbPages = "0";
+    }
 
     for (int i = 1; i <= stoi(nbArticles); ++i) {
         std::string titreArticle;
@@ -134,6 +157,7 @@ Ressource *Menu::demanderInfoRevue(std::string titre, std::string auteur, int an
         articles[i] = titreArticle;
     }
 
+
     return new Revue(titre, auteur, annee, stoi(nbPages), collection, resume, editeur, articles, stoi(nbArticles));
 }
 
@@ -142,14 +166,16 @@ Ressource *Menu::demanderInfoCd(std::string titre, std::string auteur, int annee
     std::string nbPistes;
     std::string maisonProd;
 
-    std::cout << "Type de la ressource à créer : \n"
-              << "3 CD \n"
-              << "Durée du CD :\n";
+    std::cout << "Durée du CD :\n";
     std::getline(std::cin, duree);
     std::cout << "Nombre de pistes: : ";
     std::getline(std::cin, nbPistes);
     std::cout << "Maison de production : ";
     std::getline(std::cin, maisonProd);
+
+    if (!is_number(nbPistes)) {
+        nbPistes = "0";
+    }
 
     return new CD(titre, auteur, annee, duree, stoi(nbPistes), maisonProd);
 }
@@ -158,9 +184,7 @@ Ressource *Menu::demanderInfoVhs(std::string titre, std::string auteur, int anne
     std::string duree;
     std::string maisonProd;
 
-    std::cout << "Type de la ressource à créer : \n"
-              << "4 VHS \n"
-              << "Durée de la VHS :\n";
+    std::cout << "Durée de la VHS :\n";
     std::getline(std::cin, duree);
     std::cout << "Maison de production : ";
     std::getline(std::cin, maisonProd);
@@ -173,14 +197,16 @@ Ressource *Menu::demanderInfoDVD(std::string titre, std::string auteur, int anne
     std::string maisonProd;
     std::string nbPistes;
 
-    std::cout << "Type de la ressource à créer : \n"
-              << "5 DVD \n"
-              << "Durée du DVD :\n";
+    std::cout << "Durée du DVD :\n";
     std::getline(std::cin, duree);
     std::cout << "Maison de production : ";
     std::getline(std::cin, maisonProd);
     std::cout << "Nombre de pistes : ";
     std::getline(std::cin, nbPistes);
+
+    if (!is_number(nbPistes)) {
+        nbPistes = "0";
+    }
 
     return new DVD(titre, auteur, annee, duree, maisonProd, stoi(nbPistes));
 }
@@ -190,14 +216,16 @@ Ressource *Menu::demanderInfoNumerique(std::string titre, std::string auteur, in
     std::string taille;
     std::string url;
 
-    std::cout << "Type de la ressource à créer : \n"
-              << "6 Numerique \n"
-              << "Type de contenu numérique :\n";
+    std::cout << "Type de contenu numérique :\n";
     std::getline(std::cin, type);
     std::cout << "taille de la ressource : ";
     std::getline(std::cin, taille);
     std::cout << "url : ";
     std::getline(std::cin, url);
+
+    if (!is_number(taille)) {
+        taille = "0";
+    }
 
     return new Numerique(titre, auteur, annee, type, stoi(taille), url);
 }
