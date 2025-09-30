@@ -1,9 +1,35 @@
 #include <iostream>
+#include "Mediatheque/Mediatheque.h"
 #include "Utilisateur/Client/Client.h"
 #include "Menu/Menu.h"
 #include "Utilisateur/Administrateur/Administrateur.h"
+#include "Ressource/Ressource.h"
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
+#include <windows.h>
+
+#endif
+
+#include <clocale>
+#include <iostream>
 
 int main() {
+#ifdef _WIN32
+    // 1) Basculer la console entrée/sortie en UTF-8
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
+    // (optionnel mais utile pour les I/O C/C++)
+    std::setlocale(LC_ALL, ".UTF-8");
+
+    // Si jamais ça ne suffit pas dans l’IDE, active aussi la CP côté shell :
+    // system("chcp 65001 > nul");
+#endif
+
+    Mediatheque *mediatheque = Mediatheque::getInstance();
     Menu menu;
     Utilisateur *utilisateurActuel = nullptr;
     bool boucle = true;
@@ -23,12 +49,12 @@ int main() {
                     utilisateurActuel = new Administrateur(id, mdp);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                            << "----------------------------------------" << std::endl;
+                              << "----------------------------------------" << std::endl;
                 } else if (id == "client" && mdp == "client") {
                     utilisateurActuel = new Client(id, mdp, true);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                            << "----------------------------------------" << std::endl;
+                              << "----------------------------------------" << std::endl;
                 } else {
                     std::cout << "Echec de connexion, identifiant ou mot de passe incorrect." << std::endl;
                 }
@@ -45,17 +71,107 @@ int main() {
             menu.afficherCommandes(utilisateurActuel);
             std::string choix = menu.demanderCommande();
 
-            // TODO LES AUTRES COMMANDES
+            if (choix == "DELETE") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->supprimerRessources(id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après DELETE. Syntaxe : DELETE <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "LIST") {
+                mediatheque->listerRessources();
+            } else if (choix == "SHOW") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->afficherParID(id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après SHOW. Syntaxe : SHOW <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "SEARCH") {
+                std::string filtre;
+                std::getline(std::cin, filtre);
 
-            if (choix == "LOGOUT") {
+                // Supprime l’espace
+                if (!filtre.empty() && filtre[0] == ' ') {
+                    filtre.erase(0, 1);
+                }
+
+                if (!filtre.empty()) {
+                    auto resultats = mediatheque->rechercher(filtre);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après SEARCH. Syntaxe : SEARCH <filtre>\n";
+                }
+            } else if (choix == "CLEAR") {
+                mediatheque->reinitialiser();
+            } else if (choix == "BORROW") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->emprunter(utilisateurActuel, id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après BORROW. Syntaxe : BORROW <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "RETURN") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->rendre(utilisateurActuel, id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après RETURN. Syntaxe : RETURN <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "RESERVE") {
+                int id;
+                if (std::cin >> id) {
+                    mediatheque->reserver(utilisateurActuel, id);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après RESERVE. Syntaxe : RESERVE <id>\n";
+                    std::cin.clear(); // Réinitialisation de l'entrée cin
+                    std::cin.ignore(200, '\n'); // vider la ligne entrée
+                }
+            } else if (choix == "SAVE") {
+                std::string path;
+                std::cout << "Fichier cible (ex: mediatheque.txt) : ";
+                std::getline(std::cin >> std::ws, path);
+                if (path.empty()) {
+                    std::cout << "Nom de fichier vide.\n";
+                } else {
+                    mediatheque->sauvFichier(path);
+                }
+            } else if (choix == "LOAD") {
+                std::string path;
+                std::cout << "Fichier à charger : ";
+                std::getline(std::cin >> std::ws, path);
+                if (path.empty()) {
+                    std::cout << "Nom de fichier vide.\n";
+                } else {
+                    mediatheque->chargerFichier(path);
+                }
+            } else if (choix == "RELOAD") {
+                std::string path = "save.txt";
+                std::cout << "Rechargement des données \n";
+                mediatheque->chargerFichier(path);
+                std::cout << "Données rechargés \n";
+            } else if (choix == "SHOW-BORROW") {
+                utilisateurActuel->afficherEmprunts();
+            } else if (choix == "SHOW-RESERVE") {
+                utilisateurActuel->afficherReservations();
+            } else if (choix == "RESET") {
+                mediatheque->viderMediatheque();
+            } else if (choix == "LOGOUT") {
                 utilisateurActuel->seDeconnecter();
                 delete utilisateurActuel;
                 // Plus personne de connecté
                 utilisateurActuel = nullptr;
+            } else if (choix == "ADD") {
+                mediatheque->ajouterRessource(menu.demanderInfoRessources());
             } else if (choix == "BYE") {
                 boucle = false;
-            } else {
-                std::cout << "Commande [TODO]." << std::endl;
             }
         }
     }

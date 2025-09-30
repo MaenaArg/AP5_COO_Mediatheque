@@ -4,4 +4,26 @@
 
 #include "Ressource.h"
 
-using namespace std;
+const char *Ressource::statutToCString(statut s) {
+    switch (s) {
+        case DISPONIBLE:
+            return "disponible";
+        case RESERVE:
+            return "reservé";
+        case EMPRUNTE:
+            return "emprunté";
+        default:
+            return "inconnu";
+    }
+}
+
+std::string Ressource::statutToString(statut s) {
+    return std::string(statutToCString(s));
+}
+
+int Ressource::nextId = 1;
+
+int Ressource::getID() const { return id; }
+
+Ressource::statut Ressource::getStatutRessource() const { return statutRessource; }
+void Ressource::setStatutRessource(const statut &pStatut) { statutRessource = pStatut; }

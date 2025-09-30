@@ -14,21 +14,23 @@ public:
         if (estConnecte) {
             listeCommandes = {
                 {"LIST", "Lister les ressources"},
-                {"SEARCH", "Filtrer les ressources"},
-                {"SHOW", "Afficher une ressource par ID"},
+                {"SEARCH <filter>", "Filtrer les ressources"},
+                {"SHOW <id>", "Afficher une ressource par ID"},
                 {"CLEAR", "Réinitialiser la recherche"},
                 {"RELOAD", "Recharger les données"},
-                {"BORROW", "Emprunter une ressource"},
-                {"RETURN", "Rendre une ressource"},
-                {"RESERVE", "Reserver une ressource"},
+                {"BORROW <id>", "Emprunter une ressource"},
+                {"RETURN <id>", "Rendre une ressource"},
+                {"RESERVE <id>", "Reserver une ressource"},
+                {"SHOW-BORROW", "Afficher les ressources empruntées"},
+                {"SHOW-RESERVE", "Afficher les ressources réservées"},
                 {"LOGOUT ", "Deconnexion"},
                 {"BYE", "Quitter"},
             };
         } else {
             listeCommandes = {
                 {"LIST", "Lister les ressources"},
-                {"SEARCH", "Filtrer les ressources"},
-                {"SHOW", "Afficher une ressource par ID"},
+                {"SEARCH <filter>", "Filtrer les ressources"},
+                {"SHOW <id>", "Afficher une ressource par ID"},
                 {"CLEAR", "Réinitialiser la recherche"},
                 {"RELOAD", "Recharger les données"},
                 {"BYE", "Quitter"},

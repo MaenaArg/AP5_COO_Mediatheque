@@ -7,16 +7,18 @@
 
 #include "../Ressource.h"
 
-using namespace std;
-
 class Livre : public Ressource {
 protected:
     int nbPages;
-    string collection;
-    string resume;
+    std::string collection;
+    std::string resume;
 public:
-    Livre(const string &id, const string &titre, const string &auteur, int anneeCreation, int nbPages,
-          const string &collection, const string &resume, statut statutRessource = statut::disponible);
+    Livre(const std::string &titre, const std::string &auteur, int anneeCreation, int nbPages,
+          const std::string &collection, const std::string &resume, statut statutRessource = DISPONIBLE);
+
+    int getNbPages() const { return nbPages; }
+    const std::string& getCollection() const { return collection; }
+    const std::string& getResume() const { return resume; }
 
     virtual ~Livre() {}
 

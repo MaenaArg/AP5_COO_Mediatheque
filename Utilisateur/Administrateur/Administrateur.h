@@ -12,11 +12,12 @@ public:
     Administrateur(const std::string &id, const std::string &mdp) : Utilisateur(id, mdp) {
         listeCommandes = {
             {"LIST", "Lister les ressources"},
-            {"SEARCH", "Filtrer les ressources"},
-            {"SHOW", "Afficher une ressource par ID"},
+            {"SEARCH <filter>", "Filtrer les ressources"},
+            {"SHOW <id>", "Afficher une ressource par ID"},
             {"CLEAR", "Réinitialiser la recherche"},
+            {"RELOAD", "Recharger les données"},
             {"ADD", "Créer une ressource"},
-            {"DELETE", "Supprimer une ressource"},
+            {"DELETE <id>", "Supprimer une ressource"},
             {"SAVE", "Sauvegarder"},
             {"LOAD", "Charger"},
             {"RESET", "Vider la médiathèque"},

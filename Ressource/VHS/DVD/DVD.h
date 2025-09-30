@@ -12,8 +12,10 @@ private:
     int nbPistes;
 
 public:
-    DVD(const string &id, const string &titre, const string &auteur, int anneeCreation, const string &duree,
-        const string &maisonProd, int nbPistes, statut statutRessource = statut::disponible);
+    DVD(const std::string &titre, const std::string &auteur, int anneeCreation, const std::string &duree,
+        const std::string &maisonProd, int nbPistes, statut statutRessource = DISPONIBLE);
+
+    int getNbPistes() const { return nbPistes; }
 
     void afficherInfos() const override;
 };
