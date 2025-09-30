@@ -211,7 +211,7 @@ namespace sauvegarde {
 
     bool load(const std::string& path, Mediatheque& m) {
         std::error_code ec;
-        fs::path p = resolveToDataDir(path, "save.txt", /*createDirs*/ false);
+        fs::path p = resolveToDataDir(path, "save.txt", false);
 
         // 1) Fichier présent ?
         if (!fs::exists(p, ec) || !fs::is_regular_file(p, ec)) {
