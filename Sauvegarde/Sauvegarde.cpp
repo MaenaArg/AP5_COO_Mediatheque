@@ -128,7 +128,7 @@ static std::map<int, std::string> decodeArticles(const std::string &s) {
     return arts;
 }
 
-namespace sauvegarde {
+namespace Sauvegarde {
 
     bool save(const std::string &path, const Mediatheque &m) {
         fs::path p = resolveToDataDir(path, "save.txt", true);
