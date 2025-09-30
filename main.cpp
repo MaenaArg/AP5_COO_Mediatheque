@@ -49,12 +49,12 @@ int main() {
                     utilisateurActuel = new Administrateur(id, mdp);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                            << "----------------------------------------" << std::endl;
+                              << "----------------------------------------" << std::endl;
                 } else if (id == "client" && mdp == "client") {
                     utilisateurActuel = new Client(id, mdp, true);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                            << "----------------------------------------" << std::endl;
+                              << "----------------------------------------" << std::endl;
                 } else {
                     std::cout << "Echec de connexion, identifiant ou mot de passe incorrect." << std::endl;
                 }
@@ -152,6 +152,11 @@ int main() {
                 } else {
                     mediatheque->chargerFichier(path);
                 }
+            } else if (choix == "RELOAD") {
+                std::string path = "save.txt";
+                std::cout << "Rechargement des données \n";
+                mediatheque->chargerFichier(path);
+                std::cout << "Données rechargés \n";
             } else if (choix == "SHOW-BORROW") {
                 utilisateurActuel->afficherEmprunts();
             } else if (choix == "SHOW-RESERVE") {
