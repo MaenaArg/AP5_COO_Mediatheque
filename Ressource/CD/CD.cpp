@@ -8,17 +8,18 @@ using namespace std;
 
 CD::CD(const string &titre, const string &auteur, int anneeCreation, const string &duree, int nbPistes,
        const string &maisonProd, statut statutRessource)
-        : Ressource(titre, auteur, anneeCreation, statutRessource), duree(duree), nbPistes(nbPistes),
-          maisonProd(maisonProd) {
+    : Ressource(titre, auteur, anneeCreation, statutRessource), duree(duree), nbPistes(nbPistes),
+      maisonProd(maisonProd) {
 }
 
 void CD::afficherInfos() const {
     cout << "ID : " << id << '\n'
-         << "Titre : " << titre << '\n'
-         << "Auteur : " << auteur << '\n'
-         << "Année de création : " << anneeCreation << '\n'
-         << "Nombre de pistes : " << nbPistes << '\n'
-         << "Durée : " << duree << '\n'
-         << "Maison de production : " << maisonProd << '\n'
-         << "Statut : " << statutRessource << '\n';
+            << "Titre : " << titre << '\n'
+            << "Auteur : " << auteur << '\n'
+            << "Année de création : " << anneeCreation << '\n'
+            << "Nombre de pistes : " << nbPistes << '\n'
+            << "Durée : " << duree << '\n'
+            << "Maison de production : " << maisonProd << '\n'
+            << "Statut : " << statutRessource << '\n'
+            << "----------" << endl;
 }

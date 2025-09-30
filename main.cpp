@@ -49,12 +49,12 @@ int main() {
                     utilisateurActuel = new Administrateur(id, mdp);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                              << "----------------------------------------" << std::endl;
+                            << "----------------------------------------" << std::endl;
                 } else if (id == "client" && mdp == "client") {
                     utilisateurActuel = new Client(id, mdp, true);
                     utilisateurActuel->seConnecter(id, mdp);
                     std::cout << "Connexion réussie, bonjour  " << id << "!\n"
-                              << "----------------------------------------" << std::endl;
+                            << "----------------------------------------" << std::endl;
                 } else {
                     std::cout << "Echec de connexion, identifiant ou mot de passe incorrect." << std::endl;
                 }
@@ -71,7 +71,6 @@ int main() {
             menu.afficherCommandes(utilisateurActuel);
             std::string choix = menu.demanderCommande();
 
-            // TODO LES AUTRES COMMANDES
             if (choix == "DELETE") {
                 int id;
                 if (std::cin >> id) {
@@ -92,6 +91,22 @@ int main() {
                     std::cin.clear(); // Réinitialisation de l'entrée cin
                     std::cin.ignore(200, '\n'); // vider la ligne entrée
                 }
+            } else if (choix == "SEARCH") {
+                std::string filtre;
+                std::getline(std::cin, filtre);
+
+                // Supprime l’espace
+                if (!filtre.empty() && filtre[0] == ' ') {
+                    filtre.erase(0, 1);
+                }
+
+                if (!filtre.empty()) {
+                    auto resultats = mediatheque->rechercher(filtre);
+                } else {
+                    std::cout << "Veuillez fournir un identifiant après SEARCH. Syntaxe : SEARCH <filtre>\n";
+                }
+            } else if (choix == "CLEAR") {
+                mediatheque->reinitialiser();
             } else if (choix == "BORROW") {
                 int id;
                 if (std::cin >> id) {
@@ -119,7 +134,6 @@ int main() {
                     std::cin.clear(); // Réinitialisation de l'entrée cin
                     std::cin.ignore(200, '\n'); // vider la ligne entrée
                 }
-
             } else if (choix == "SAVE") {
                 std::string path;
                 std::cout << "Fichier cible (ex: mediatheque.txt) : ";
@@ -153,8 +167,6 @@ int main() {
                 mediatheque->ajouterRessource(menu.demanderInfoRessources());
             } else if (choix == "BYE") {
                 boucle = false;
-            } else {
-                std::cout << "Commande [TODO]." << std::endl;
             }
         }
     }

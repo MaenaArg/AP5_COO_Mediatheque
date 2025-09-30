@@ -58,8 +58,8 @@ void Mediatheque::supprimerRessources(const int &pId) {
     }
 }
 
-std::vector<std::pair<int, const Ressource *>> Mediatheque::snapshot() const {
-    std::vector<std::pair<int, const Ressource *>> v;
+std::vector<std::pair<int, const Ressource *> > Mediatheque::snapshot() const {
+    std::vector<std::pair<int, const Ressource *> > v;
     v.reserve(ressources.size());
     for (const auto &kv: ressources) v.emplace_back(kv.first, kv.second);
     return v;
@@ -84,9 +84,61 @@ void Mediatheque::sauvFichier(const std::string &nomFichier) const {
 
 // Recherche en fonction d'un filtre demandé à l'utilisateur (peut s'appliquer à toutes les infos de la ressource)
 // + Conserver la liste des résultats tant que l'utilisateur ne tape pas la commande "CLEAR"
-//std::map<int, Ressource> Mediatheque::rechercher(const std::string &pFiltre) {
-// TODO
-//}
+std::map<int, Ressource *> Mediatheque::rechercher(const std::string &pFiltre) {
+    std::map<int, Ressource *> ressourcesTotales;
+
+    // Première recherche -> on part de la totalité des ressources
+    if (ressourcesCourantes.empty()) {
+        ressourcesTotales = ressources;
+    } else {
+        ressourcesTotales = ressourcesCourantes;
+    }
+
+    ressourcesCourantes.clear();
+
+    for (auto &pair: ressourcesTotales) {
+        Ressource *ressource = pair.second;
+
+        // Conversion des champs en string
+        std::string idStr = std::to_string(ressource->getID());
+        std::string titreStr = ressource->getTitre();
+        std::string auteurStr = ressource->getAuteur();
+        std::string anneeStr = std::to_string(ressource->getAnneeCreation());
+        std::string statutStr;
+
+        switch (ressource->getStatutRessource()) {
+            case Ressource::statut::DISPONIBLE:
+                statutStr = "DISPONIBLE";
+                break;
+            case Ressource::statut::RESERVE:
+                statutStr = "RESERVE";
+                break;
+            case Ressource::statut::EMPRUNTE:
+                statutStr = "EMPRUNTE";
+                break;
+        }
+
+        // Comparaison du filtre avec toutes les données des ressources
+        if (titreStr.find(pFiltre) != std::string::npos ||
+            auteurStr.find(pFiltre) != std::string::npos ||
+            idStr.find(pFiltre) != std::string::npos ||
+            anneeStr.find(pFiltre) != std::string::npos ||
+            statutStr.find(pFiltre) != std::string::npos) {
+            ressourcesCourantes[pair.first] = ressource;
+        }
+    }
+
+    if (ressourcesCourantes.empty()) {
+        std::cout << "Aucun résultat trouvé pour " << pFiltre << std::endl;
+    } else {
+        std::cout << "Résultats trouvés :" << std::endl;
+        for (auto &pair: ressourcesCourantes) {
+            pair.second->afficherInfos();
+        }
+    }
+
+    return ressourcesCourantes;
+}
 
 // Affichage des infos des ressources  (compactes : titre, auteur, année) en fonction de la recherche en cours
 void Mediatheque::listerRessources() {
@@ -124,12 +176,12 @@ void Mediatheque::listerRessources() {
 
     // En-têtes
     cout << left
-         << setw(6) << "ID"
-         << setw(12) << "Type"
-         << setw(34) << "Titre"
-         << setw(24) << "Auteur"
-         << setw(8) << "Annee"
-         << "Statut" << '\n';
+            << setw(6) << "ID"
+            << setw(12) << "Type"
+            << setw(34) << "Titre"
+            << setw(24) << "Auteur"
+            << setw(8) << "Annee"
+            << "Statut" << '\n';
 
     cout << std::string(6 + 12 + 34 + 24 + 8 + 6, '-') << '\n';
 
@@ -139,13 +191,13 @@ void Mediatheque::listerRessources() {
         const Ressource *r = kv.second;
 
         cout << left
-             << setw(6) << id
-             << setw(12) << typeDe(r)
-             << setw(34) << r->getTitre()
-             << setw(24) << r->getAuteur()
-             << setw(8) << r->getAnneeCreation()
-             << statutStr(r->getStatut())
-             << '\n';
+                << setw(6) << id
+                << setw(12) << typeDe(r)
+                << setw(34) << r->getTitre()
+                << setw(24) << r->getAuteur()
+                << setw(8) << r->getAnneeCreation()
+                << statutStr(r->getStatut())
+                << '\n';
     }
 }
 
@@ -162,7 +214,8 @@ void Mediatheque::afficherParID(const int &pId) {
 
 // Supprime la recherche courante
 void Mediatheque::reinitialiser() {
-    // TODO
+    ressourcesCourantes.clear();
+    std::cout << "Recherche réinitialisée !" << std::endl;
 }
 
 // Suppression de toutes les ressources de la médiathèque + les ressources empruntées
@@ -197,12 +250,13 @@ void Mediatheque::reserver(Utilisateur *pUtilisateur, int pId) {
 
             // Ajout de la ressource dans la liste de réservation de l’utilisateur
             pUtilisateur->ajouterReservation(pId,
-                                             ressource); // Ajout de la ressource dans la liste des réservations du client
+                                             ressource);
+            // Ajout de la ressource dans la liste des réservations du client
 
             std::cout << "La ressource " << pId << " a été réservée." << std::endl;
         } else {
             std::cout << "Impossible de réserver la ressource " << pId << ", elle est déjà réservée ou empruntée." <<
-                      std::endl;
+                    std::endl;
         }
     } else {
         std::cout << "Aucune ressource trouvée avec l'ID : " << pId << std::endl;
@@ -229,7 +283,7 @@ void Mediatheque::emprunter(Utilisateur *pUtilisateur, int pId) {
             // Ajout de la ressource dans la liste d’emprunts de l’utilisateur
             pUtilisateur->ajouterEmprunt(pId, ressource); // Ajout de la ressource dans la liste des emprunts du client
             pUtilisateur->supprimerReservation(
-                    pId); // Suppression de la ressource réservée de la liste des réservations
+                pId); // Suppression de la ressource réservée de la liste des réservations
 
             std::cout << "La ressource " << pId << " a été empruntée." << std::endl;
         } else {

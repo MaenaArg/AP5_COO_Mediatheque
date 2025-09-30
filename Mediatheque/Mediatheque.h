@@ -15,7 +15,11 @@ class Mediatheque {
 private:
     // Pointeur vers le singleton
     static Mediatheque *singleton;
+    // Toutes les ressources de la médiathèque
     std::map<int, Ressource *> ressources;
+    // Recherche courante
+    std::map<int, Ressource *> ressourcesCourantes;
+
     std::map<int, Utilisateur *> utilisateurs;
     int nextId = 1;
 
@@ -41,7 +45,7 @@ public:
 
     //--partie sauvegarde fichier
 
-    std::vector<std::pair<int, const Ressource *>> snapshot() const;
+    std::vector<std::pair<int, const Ressource *> > snapshot() const;
 
     int ajouterRessourceAvecId(int id, Ressource *r);
 
@@ -50,7 +54,7 @@ public:
     void sauvFichier(const std::string &nomFichier) const;
     //--
 
-    std::map<int, Ressource> rechercher(const std::string &pFiltre);
+    std::map<int, Ressource *> rechercher(const std::string &pFiltre);
 
     void listerRessources();
 

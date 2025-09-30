@@ -18,5 +18,6 @@ void VHS::afficherInfos() const {
             << "Année de création : " << anneeCreation << '\n'
             << "Durée : " << duree << '\n'
             << "Maison de production : " << maisonProd << '\n'
-            << "Statut : " << statutRessource << '\n';
+            << "Statut : " << statutRessource << '\n'
+            << "----------" << endl;
 }
