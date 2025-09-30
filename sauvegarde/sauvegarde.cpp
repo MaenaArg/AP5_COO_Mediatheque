@@ -26,8 +26,7 @@
 namespace {
     namespace fs = std::filesystem;
 
-    fs::path
-    resolveToDataDir(const std::string &userPath, const std::string &defaultName = "save.txt", bool createDirs = true) {
+    fs::path resolveToDataDir(const std::string &userPath, const std::string &defaultName = "save.txt", bool createDirs = true) {
         fs::path p = userPath.empty() ? fs::path(defaultName) : fs::path(userPath);
 
         if (!p.is_absolute()) {
