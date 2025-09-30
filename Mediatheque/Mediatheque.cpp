@@ -72,7 +72,7 @@ int Mediatheque::ajouterRessourceAvecId(int id, Ressource *r) {
     return id;
 }
 
-// Mise à jour la liste des ressources présente dans la médiathèque : appelé quand création, suppression et vider médiathèque
+// Mise à jour la liste des ressources présente dans la médiathèque : appelé quand création, suppression et vider médiathèque et ajouter les données du fichier
 void Mediatheque::chargerFichier(const std::string &nomFichier) {
     sauvegarde::load(nomFichier, *this);
 }
