@@ -19,5 +19,6 @@ void Numerique::afficherInfos() const {
             << "Type : " << type << '\n'
             << "Taille : " << taille << '\n'
             << "URL : " << url << '\n'
-            << "Statut : " << statutRessource << '\n';
+            << "Statut : " << statutRessource << '\n'
+            << "----------" << endl;
 }
