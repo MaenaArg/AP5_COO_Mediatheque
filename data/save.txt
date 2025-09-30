@@ -1,11 +1,11 @@
 #TYPE;id;titre;auteur;annee;...;statut
 LIVRE;1;Les Misérables;Victor Hugo;1862;1488;Collection Classiques;Roman historique;0
 LIVRE;2;Harry Potter à l'école des sorciers;J.K. Rowling;1997;309;Collection Fantasy;Un jeune sorcier découvre ses pouvoirs;0
-REVUE;3;Science & Vie;Collectif;2023;100;Science et Avenir;Résumé revue;Science et Technologie;5;;0
-REVUE;4;National Geographic;Collectif;2022;120;NatGeo;Résumé revue;Nature et Découverte;8;;0
+REVUE;3;Science & Vie;Collectif;2023;Science et Avenir;5 articles;5;0
+REVUE;4;National Geographic;Collectif;2022;NatGeo;8 articles;8;0
 CD;5;Thriller;Michael Jackson;1982;42min;9;Epic Records;0
 CD;6;Random Access Memories;Daft Punk;2013;74min;13;Columbia Records;0
 VHS;7;Jurassic Park;Steven Spielberg;1993;127min;Universal Pictures;0
-DVD;8;Inception;Christopher Nolan;2010;148min;Warner Bros;14;0
-NUM;9;Ebook Le Petit Prince;Antoine de Saint-Exupéry;1943;PDF;3;www.ebooks.com/lepetitprince;0
-NUM;10;Cours C++ en ligne;Bjarne Stroustrup;2020;Video;2500;www.cpplearn.com;0
+DVD;8;Inception;Christopher Nolan;2010;14 pistes;0
+NUMERIQUE;9;Ebook Le Petit Prince;Antoine de Saint-Exupéry;1943;PDF;3;www.ebooks.com/lepetitprince;0
+NUMERIQUE;10;Cours C++ en ligne;Bjarne Stroustrup;2020;Video;2500;www.cpplearn.com;0
