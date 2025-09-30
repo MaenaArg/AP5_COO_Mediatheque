@@ -25,8 +25,8 @@ add_executable(AP5_COO_mediatheque
         Menu/Menu.h
         Mediatheque/Mediatheque.cpp
         Mediatheque/Mediatheque.h
-        Sauvegarde/sauvegarde.cpp
-        Sauvegarde/sauvegarde.h
+        sauvegarde/sauvegarde.cpp
+        sauvegarde/sauvegarde.h
 )
 
 # Inclure le dossier racine pour les headers (optionnel mais pratique)

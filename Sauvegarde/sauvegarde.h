@@ -9,7 +9,7 @@
 #include "Mediatheque/Mediatheque.h"
 
 
-namespace sauvegarde {
+namespace Sauvegarde {
     // Enregistre toutes les ressources (Livre, Revue, CD, VHS, DVD, Numérique)
     bool save(const std::string& path, const Mediatheque& m);
 

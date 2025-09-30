@@ -5,7 +5,7 @@
 #include "Mediatheque.h"
 #include "../Utilisateur/Utilisateur.h"
 #include "../Ressource/Ressource.h"
-#include "../sauvegarde/sauvegarde.h"
+#include "../Sauvegarde/Sauvegarde.h"
 #include <iostream>
 #include <iomanip>
 #include "../Ressource/Livre/Livre.h"
@@ -74,12 +74,12 @@ int Mediatheque::ajouterRessourceAvecId(int id, Ressource *r) {
 
 // Mise à jour la liste des ressources présente dans la médiathèque : appelé quand création, suppression et vider médiathèque et ajouter les données du fichier
 void Mediatheque::chargerFichier(const std::string &nomFichier) {
-    sauvegarde::load(nomFichier, *this);
+    Sauvegarde::load(nomFichier, *this);
 }
 
 // Sauvegarde d'un fichier contenant les ressources en demandant le nom à l'utilisateur
 void Mediatheque::sauvFichier(const std::string &nomFichier) const {
-    sauvegarde::save(nomFichier, *this);
+    Sauvegarde::save(nomFichier, *this);
 }
 
 // Recherche en fonction d'un filtre demandé à l'utilisateur (peut s'appliquer à toutes les infos de la ressource)
