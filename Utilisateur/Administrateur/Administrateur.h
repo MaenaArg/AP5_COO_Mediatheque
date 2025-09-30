@@ -15,6 +15,7 @@ public:
             {"SEARCH <filter>", "Filtrer les ressources"},
             {"SHOW <id>", "Afficher une ressource par ID"},
             {"CLEAR", "Réinitialiser la recherche"},
+            {"RELOAD", "Recharger les données"},
             {"ADD", "Créer une ressource"},
             {"DELETE <id>", "Supprimer une ressource"},
             {"SAVE", "Sauvegarder"},
