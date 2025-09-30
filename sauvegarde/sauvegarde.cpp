@@ -26,16 +26,14 @@
 namespace {
     namespace fs = std::filesystem;
 
-    fs::path resolveToDataDir(const std::string &userPath, const std::string &defaultName = "save.txt") {
-        // si l'utilisateur tape juste "": on prend un nom par défaut
+    fs::path
+    resolveToDataDir(const std::string &userPath, const std::string &defaultName = "save.txt", bool createDirs = true) {
         fs::path p = userPath.empty() ? fs::path(defaultName) : fs::path(userPath);
 
-        // si chemin absolu → on le respecte; sinon on force dans data/
         if (!p.is_absolute()) {
             p = fs::path(PROJECT_DATA_DIR) / p;
         }
-        // crée le dossier au besoin
-        if (!p.parent_path().empty()) {
+        if (createDirs && !p.parent_path().empty()) {
             std::error_code ec;
             fs::create_directories(p.parent_path(), ec);
         }
@@ -43,7 +41,6 @@ namespace {
     }
 }
 
-// ── helpers d’échappement ─────────────────────────────────────────────────────
 static std::string escapeField(const std::string &s) {
     std::string out;
     out.reserve(s.size());
@@ -132,11 +129,10 @@ static std::map<int, std::string> decodeArticles(const std::string &s) {
     return arts;
 }
 
-// ── API principale ────────────────────────────────────────────────────────────
 namespace sauvegarde {
 
     bool save(const std::string &path, const Mediatheque &m) {
-        fs::path p = resolveToDataDir(path, "save.txt");
+        fs::path p = resolveToDataDir(path, "save.txt", true);
         std::ofstream out(p, std::ios::binary);
         if (!out) {
             std::cerr << "Erreur: impossible d'ouvrir " << p.string() << " en écriture.\n";
@@ -145,7 +141,6 @@ namespace sauvegarde {
 
         out << "#TYPE;id;titre;auteur;annee;...;statut\n";
 
-        // on prend un snapshot de la collection
         auto snap = m.snapshot(); // vector<pair<int,const Ressource*>>
 
         for (const auto &[id, r]: snap) {
@@ -214,8 +209,27 @@ namespace sauvegarde {
         return true;
     }
 
-    bool load(const std::string &path, Mediatheque &m) {
-        fs::path p = resolveToDataDir(path, "save.txt");
+    bool load(const std::string& path, Mediatheque& m) {
+        std::error_code ec;
+        fs::path p = resolveToDataDir(path, "save.txt", /*createDirs*/ false);
+
+        // 1) Fichier présent ?
+        if (!fs::exists(p, ec) || !fs::is_regular_file(p, ec)) {
+            std::cerr << "Aucun fichier de sauvegarde trouvé : "
+                      << fs::absolute(p).string() << "\n"
+                      << "Astuce : utilisez SAVE pour en créer un (ex: SAVE -> save.txt)\n";
+            return false;
+        }
+
+        // 2) Fichier non vide ?
+        auto sz = fs::file_size(p, ec);
+        if (!ec && sz == 0) {
+            std::cerr << "Le fichier est vide : " << fs::absolute(p).string()
+                      << " — rien à charger.\n";
+            return true; // on considère que ce n'est pas une erreur bloquante
+        }
+
+        // 3) Ouverture
         std::ifstream in(p, std::ios::binary);
         if (!in) {
             std::cerr << "Erreur: impossible d'ouvrir " << p.string() << " en lecture.\n";
@@ -335,4 +349,4 @@ namespace sauvegarde {
         return true;
     }
 
-} // namespace sauvegarde
+}
