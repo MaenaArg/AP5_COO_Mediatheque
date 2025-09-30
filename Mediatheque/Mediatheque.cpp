@@ -77,7 +77,7 @@ void Mediatheque::chargerFichier(const std::string &nomFichier) {
     sauvegarde::load(nomFichier, *this);
 }
 
-// Sauvegarde d'un fichier contenant les ressources en demandant le nom à l'utilisateur
+// sauvegarde d'un fichier contenant les ressources en demandant le nom à l'utilisateur
 void Mediatheque::sauvFichier(const std::string &nomFichier) const {
     sauvegarde::save(nomFichier, *this);
 }

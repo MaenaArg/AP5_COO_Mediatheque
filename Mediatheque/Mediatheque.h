@@ -43,7 +43,7 @@ public:
 
     void supprimerRessources(const int &pId);
 
-    //--partie Sauvegarde fichier
+    //--partie sauvegarde fichier
 
     std::vector<std::pair<int, const Ressource *> > snapshot() const;
 
