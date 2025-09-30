@@ -23,8 +23,7 @@
 namespace {
     namespace fs = std::filesystem;
 
-    fs::path
-    resolveToDataDir(const std::string &userPath, const std::string &defaultName = "save.txt", bool createDirs = true) {
+    fs::path resolveToDataDir(const std::string &userPath, const std::string &defaultName = "save.txt", bool createDirs = true) {
         fs::path p = userPath.empty() ? fs::path(defaultName) : fs::path(userPath);
 
         if (!p.is_absolute()) {
@@ -126,7 +125,7 @@ static std::map<int, std::string> decodeArticles(const std::string &s) {
     return arts;
 }
 
-namespace sauvegarde {
+namespace Sauvegarde {
 
     bool save(const std::string &path, const Mediatheque &m) {
         fs::path p = resolveToDataDir(path, "save.txt", true);
@@ -208,7 +207,7 @@ namespace sauvegarde {
 
     bool load(const std::string& path, Mediatheque& m) {
         std::error_code ec;
-        fs::path p = resolveToDataDir(path, "save.txt", /*createDirs*/ false);
+        fs::path p = resolveToDataDir(path, "save.txt", false);
 
         // 1) Fichier présent ?
         if (!fs::exists(p, ec) || !fs::is_regular_file(p, ec)) {
