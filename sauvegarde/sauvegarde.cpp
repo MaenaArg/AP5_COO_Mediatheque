@@ -3,7 +3,6 @@
 //
 
 #include "Sauvegarde.h"
-#include "../Mediatheque/Mediatheque.h"
 
 #include "../Ressource/Livre/Livre.h"
 #include "../Ressource/Livre/Revue/Revue.h"
@@ -15,12 +14,10 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <utility>
 #include <map>
 #include <filesystem>
 
 #ifndef PROJECT_DATA_DIR
-#define PROJECT_DATA_DIR "."
 #endif
 
 namespace {
@@ -205,7 +202,7 @@ namespace sauvegarde {
             }
         }
 
-        std::cout << "Sauvegarde terminee : " << p.string() << "\n";
+        std::cout << "sauvegarde terminee : " << p.string() << "\n";
         return true;
     }
 
