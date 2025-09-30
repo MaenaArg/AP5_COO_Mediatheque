@@ -7,6 +7,13 @@
 #include "../Ressource/Ressource.h"
 #include "../sauvegarde/sauvegarde.h"
 #include <iostream>
+#include <iomanip>
+#include "../Ressource/Livre/Livre.h"
+#include "../Ressource/Livre/Revue/Revue.h"
+#include "../Ressource/CD/CD.h"
+#include "../Ressource/VHS/VHS.h"
+#include "../Ressource/VHS/DVD/DVD.h"
+#include "../Ressource/Numerique/Numerique.h"
 
 // Initialisation du singleton
 Mediatheque *Mediatheque::singleton = nullptr;
@@ -83,7 +90,63 @@ void Mediatheque::sauvFichier(const std::string &nomFichier) const {
 
 // Affichage des infos des ressources  (compactes : titre, auteur, année) en fonction de la recherche en cours
 void Mediatheque::listerRessources() {
-    // TODO
+    using std::cout;
+    using std::left;
+    using std::setw;
+
+    if (ressources.empty()) {
+        cout << "(aucune ressource)\n";
+        return;
+    }
+
+    auto typeDe = [](const Ressource *r) -> const char * {
+        if (dynamic_cast<const Revue *>(r)) return "Revue";
+        if (dynamic_cast<const Livre *>(r)) return "Livre";
+        if (dynamic_cast<const DVD *>(r)) return "DVD";
+        if (dynamic_cast<const VHS *>(r)) return "VHS";
+        if (dynamic_cast<const CD *>(r)) return "CD";
+        if (dynamic_cast<const Numerique *>(r)) return "Numerique";
+        return "Ressource";
+    };
+
+    auto statutStr = [](Ressource::statut s) -> const char * {
+        switch (s) {
+            case Ressource::statut::DISPONIBLE:
+                return "DISPONIBLE";
+            case Ressource::statut::RESERVE:
+                return "RESERVE";
+            case Ressource::statut::EMPRUNTE:
+                return "EMPRUNTE";
+            default:
+                return "INCONNU";
+        }
+    };
+
+    // En-têtes
+    cout << left
+         << setw(6) << "ID"
+         << setw(12) << "Type"
+         << setw(34) << "Titre"
+         << setw(24) << "Auteur"
+         << setw(8) << "Annee"
+         << "Statut" << '\n';
+
+    cout << std::string(6 + 12 + 34 + 24 + 8 + 6, '-') << '\n';
+
+    // Lignes
+    for (const auto &kv: ressources) {
+        int id = kv.first;
+        const Ressource *r = kv.second;
+
+        cout << left
+             << setw(6) << id
+             << setw(12) << typeDe(r)
+             << setw(34) << r->getTitre()
+             << setw(24) << r->getAuteur()
+             << setw(8) << r->getAnneeCreation()
+             << statutStr(r->getStatut())
+             << '\n';
+    }
 }
 
 // Affichage d'une ressource (infos) en fonction de l'ID donné par l'utilisateur

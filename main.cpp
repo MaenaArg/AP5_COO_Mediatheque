@@ -81,6 +81,8 @@ int main() {
                     std::cin.clear(); // Réinitialisation de l'entrée cin
                     std::cin.ignore(200, '\n'); // vider la ligne entrée
                 }
+            } else if (choix == "LIST") {
+                mediatheque->listerRessources();
             } else if (choix == "SHOW") {
                 int id;
                 if (std::cin >> id) {
