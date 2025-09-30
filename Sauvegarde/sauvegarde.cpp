@@ -2,7 +2,7 @@
 // Created by GAD24 on 29/09/2025.
 //
 
-#include "Sauvegarde.h"
+#include "sauvegarde.h"
 #include "../Mediatheque/Mediatheque.h"
 
 #include "../Ressource/Livre/Livre.h"
@@ -128,7 +128,7 @@ static std::map<int, std::string> decodeArticles(const std::string &s) {
     return arts;
 }
 
-namespace Sauvegarde {
+namespace sauvegarde {
 
     bool save(const std::string &path, const Mediatheque &m) {
         fs::path p = resolveToDataDir(path, "save.txt", true);
